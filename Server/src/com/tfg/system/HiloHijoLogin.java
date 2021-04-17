@@ -11,12 +11,12 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class HiloHijoServer extends Thread {
+public class HiloHijoLogin extends Thread {
 
     private final ObjetoCompartido objComp;
     private final Socket client;
 
-    public HiloHijoServer(Socket cl, ObjetoCompartido obj) {
+    public HiloHijoLogin(Socket cl, ObjetoCompartido obj) {
         this.client = cl;
         this.objComp = obj;
     }
