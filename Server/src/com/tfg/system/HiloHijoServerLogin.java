@@ -13,9 +13,9 @@ import java.net.Socket;
  *
  * @author oscar
  */
-public class HiloHijoServerLogin extends Thread{
+public class HiloHijoServerLogin extends Thread {
 
-    private ObjetoCompartido objComp;
+    private final ObjetoCompartido objComp;
 
     public HiloHijoServerLogin(ObjetoCompartido objComp) {
         this.objComp = objComp;
@@ -27,12 +27,11 @@ public class HiloHijoServerLogin extends Thread{
         Socket sockClient = null;
 
         try {
-            sockServ = new ServerSocket(6000); //6100
+            sockServ = new ServerSocket(6100);
             System.out.println("----- SERVER ARRANCADO -----");
 
-            // bucle infinito recibiendo usuarios
+            // bucle infinito recibiendo usuarios para logearse
             do {
-                // escucho hasta que se conecta un usuario y lo creo
                 sockClient = sockServ.accept();
 
                 hijoServ = new HiloHijoLogin(sockClient, objComp);

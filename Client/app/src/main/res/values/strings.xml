@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Chat</string>
+    <string name="nombre_registro">Introduce tu id de usuario</string>
+    <string name="password_registro">Introduce tu contraseña</string>
+</resources>

@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class HiloHijoLogin extends Thread {
 
@@ -28,17 +26,21 @@ public class HiloHijoLogin extends Thread {
         int tipo;
         boolean resul;
 
+        System.out.println("Socket LOGIN conectado: " + this.client);
+
         try {
             do {
                 ois = new ObjectInputStream(this.client.getInputStream());
+                oos = new ObjectOutputStream(this.client.getOutputStream());
+
                 msj = (Mensaje) ois.readObject();
                 tipo = msj.getTipo();
 
                 if (tipo != -1) {
+
                     switch (tipo) {
                         case 0:
                             resul = this.objComp.addUser(msj.getEmisor(), msj.getMensaje(), this.client);
-                            oos = new ObjectOutputStream(this.client.getOutputStream());
 
                             if (resul) {
                                 msj = new Mensaje(null, null, null, 0, 0);
@@ -64,7 +66,6 @@ public class HiloHijoLogin extends Thread {
 
         } catch (IOException ex) {
             System.out.println("Error I/O HHServer");
-            ex.printStackTrace();
 
         } catch (ClassNotFoundException ex) {
             System.out.println("Clase Mensaje inexistente HHServer");
