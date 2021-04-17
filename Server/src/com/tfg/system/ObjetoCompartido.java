@@ -7,7 +7,6 @@ package com.tfg.system;
 
 import java.util.HashMap;
 import java.net.Socket;
-import java.sql.*;
 
 /**
  *
@@ -16,20 +15,20 @@ import java.sql.*;
 public class ObjetoCompartido {
 
     private HashMap<String, Socket> activos;
-    
 
     public ObjetoCompartido() {
         this.activos = new HashMap<>();
     }
 
-    public synchronized boolean addUser(String id, byte[] psw, Socket sck){
-        if(BBDD.addUser(id, psw, sck)){
+    public synchronized boolean addUser(String id, byte[] psw, Socket sck) {
+        if (BBDD.addUser(id, psw, sck)) {
             this.activos.put(id, sck);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
+
     public void sendPrivateMessage(String id) {
 
     }
