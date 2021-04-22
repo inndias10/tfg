@@ -16,6 +16,44 @@ import java.sql.Statement;
  * @author oscar
  */
 public class BBDD {
+    public static int addGroup(String nombre, String id_usuario, String descripcion){
+        Connection conex = null;
+        Statement sentencia;
+        ResultSet rs;
+        String sql;
+        int id = 0;
+        try {
+            conex = DriverManager.getConnection(Config.URL, Config.USER, Config.PASS);
+            sentencia = conex.createStatement();
+            sql = "select id from grupos order by id desc limit 1;";
+            rs = sentencia.executeQuery(sql);
+
+            // si el usuario no existe lo crea
+            if (rs.next()) {
+                id = rs.getInt(1);
+            } else {
+                id = 1;
+            }
+            sql = "insert into grupos(id,nombre,descripcion) values("+id+",'"+nombre+"','"+descripcion+"');";
+            sentencia.executeUpdate(sql);
+            sql = "insert into usuarios_has_grupos(grupos_id,usuarios_id,administrador) values("+id+",'"+id_usuario+"','si');";
+            sentencia.executeUpdate(sql);
+            return id;
+        } catch (SQLException ex) {
+            System.out.println("Error SQL al añadir el grupo");
+            
+        } finally {
+            if (conex != null) {
+                try {
+                    conex.close();
+                } catch (SQLException ex) {
+                    System.out.println("Error cerrando conexión");
+                }
+            }
+
+        }
+        return id;
+    }
     public static boolean addUser(String id, byte[] psw) {
         Connection conex = null;
         Statement sentencia;

@@ -38,6 +38,13 @@ public class HiloHijo extends Thread{
                     if (!error) {
                         objComp.sendPrivateMessage(new Mensaje(null,m.getEmisor(),null,1,2));
                     }
+                }else if(tipo == 2){
+                    error = objComp.addGroup(m.getReceptor(),m.getEmisor(),m.getMensaje().toString());
+                    if (!error) {
+                        objComp.sendPrivateMessage(new Mensaje(null,m.getEmisor(),null,1,3));
+                    }
+                }else if(tipo == 3){
+                    objComp.sendGroupMessage(m);
                 }
             }while(tipo != -1);
         }catch(Exception e){
