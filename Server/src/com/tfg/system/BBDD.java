@@ -5,7 +5,6 @@
  */
 package com.tfg.system;
 
-import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -17,7 +16,7 @@ import java.sql.Statement;
  * @author oscar
  */
 public class BBDD {
-    public static boolean addUser(String id, byte[] psw, Socket sck) {
+    public static boolean addUser(String id, byte[] psw) {
         Connection conex = null;
         Statement sentencia;
         ResultSet rs;

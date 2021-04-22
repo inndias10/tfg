@@ -40,11 +40,12 @@ public class HiloHijoLogin extends Thread {
 
                     switch (tipo) {
                         case 0:
-                            resul = this.objComp.addUser(msj.getEmisor(), msj.getMensaje(), this.client);
+                            resul = this.objComp.checkuser(msj.getEmisor(), msj.getMensaje());
 
                             if (resul) {
                                 msj = new Mensaje(null, null, null, 0, 0);
                                 oos.writeObject(msj);
+                                BBDD.addUser(msj.getEmisor(),msj.getMensaje());
                             } else {
                                 msj = new Mensaje(null, null, null, 0, 1);
                                 oos.writeObject(msj);
@@ -62,7 +63,7 @@ public class HiloHijoLogin extends Thread {
                     }
                 }
 
-            } while (tipo != -1);
+            } while (tipo != 0);
 
         } catch (IOException ex) {
             System.out.println("Error I/O HHServer");
