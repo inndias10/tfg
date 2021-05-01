@@ -37,6 +37,16 @@ public class ObjetoCompartido {
 
     }
 
+    public boolean removeGroupUser(String grupo, String usuario) {
+        try {
+            this.grupos.get(grupo).remove(usuario);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
     public synchronized void addUser(String id, Socket sck) {
         this.activos.put(id, sck);
         if (noEnviado.containsKey(id)) {
