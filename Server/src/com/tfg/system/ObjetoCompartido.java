@@ -125,5 +125,5 @@ public class ObjetoCompartido {
             sendPrivateMessage(pendientes.get(i));
         }
     }
-
+//prueba de cambios
 }
