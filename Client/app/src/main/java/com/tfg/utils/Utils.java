@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.trabajoFinal.chat;
+package com.tfg.utils;
 
 import java.io.DataOutputStream;
 import java.io.File;
