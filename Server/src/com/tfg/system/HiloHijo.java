@@ -24,7 +24,7 @@ public class HiloHijo extends Thread{
     public void run(){
         ObjectInputStream entrada = null;
         Mensaje m;
-        int tipo = -2;
+        int tipo;
         boolean error;
         try{
             entrada = new ObjectInputStream(client.getInputStream());
@@ -45,6 +45,12 @@ public class HiloHijo extends Thread{
                     }
                 }else if(tipo == 3){
                     objComp.sendGroupMessage(m);
+                }else if(tipo == 4){
+                    if(objComp.removeGroupUser(m.getReceptor(), m.getMensaje().toString())){
+                        objComp.sendPrivateMessage(new Mensaje(m.getEmisor(), m.getMensaje().toString(), m.getReceptor().getBytes(), 4, 4));
+                    }else{
+                        objComp.sendPrivateMessage(new Mensaje(null, m.getEmisor(), null, 4, 5));
+                    }
                 }
             }while(tipo != -1);
         }catch(Exception e){

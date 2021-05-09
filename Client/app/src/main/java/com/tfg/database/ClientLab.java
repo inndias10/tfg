@@ -93,4 +93,8 @@ public class ClientLab {
         usuariosDao.addUsuario(usuario);
     }
 
+    public void addMsgPrivado(Msg_Privado mensaje) {
+        msgPrivadoDao.addMsgPrivado(mensaje);
+    }
+
 }

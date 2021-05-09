@@ -20,4 +20,9 @@ public class Msg_Privado {
     @NonNull
     public String timestamp;
 
+    public Msg_Privado(@NonNull String idUsuario, @NonNull String mensaje, @NonNull String timestamp) {
+        this.idUsuario = idUsuario;
+        this.mensaje = mensaje;
+        this.timestamp = timestamp;
+    }
 }
