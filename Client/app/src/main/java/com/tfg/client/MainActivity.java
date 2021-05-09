@@ -220,12 +220,18 @@ public class MainActivity extends AppCompatActivity {
     // creación de chat privado // completar
     private void createPrivate() {
         Usuarios nuevoUsuario;
-        String id;
+        String nick;
+        Mensaje msj;
 
-        id = "nickname"; //// EditText.getText
-        // crear un nuevo usuario sin
-        nuevoUsuario = new Usuarios(id);
-        database.addUsuario(nuevoUsuario);
+        nick = "nickname"; //// EditText.getText
+
+        try {
+            msj = new Mensaje(me, nick, null, 7, 0);
+            oos.writeObject(msj);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
