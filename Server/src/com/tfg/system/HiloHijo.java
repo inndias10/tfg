@@ -33,7 +33,7 @@ public class HiloHijo extends Thread{
             do{
                 m = (Mensaje) entrada.readObject();
                 tipo = m.getTipo();
-                if (tipo == 1) {
+                if (tipo == 1 || tipo == 6) {
                     error = objComp.sendPrivateMessage(m);
                     if (!error) {
                         objComp.sendPrivateMessage(new Mensaje(null,m.getEmisor(),null,1,2));
@@ -51,6 +51,8 @@ public class HiloHijo extends Thread{
                     }else{
                         objComp.sendPrivateMessage(new Mensaje(null, m.getEmisor(), null, 4, 5));
                     }
+                }else if(tipo == 7){
+                    objComp.checkUser(m.getReceptor(), m.getEmisor());
                 }
             }while(tipo != -1);
         }catch(Exception e){

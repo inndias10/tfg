@@ -125,5 +125,13 @@ public class ObjetoCompartido {
             sendPrivateMessage(pendientes.get(i));
         }
     }
+    
+    public void checkUser(String id, String id_user){
+        if (BBDD.checkUser(id)) {
+            sendPrivateMessage(new Mensaje(id, id_user, null, 7, 0));
+        }else{
+            sendPrivateMessage(new Mensaje(id, id_user, null, 7, 6));
+        }
+    }
 //prueba de cambios
 }

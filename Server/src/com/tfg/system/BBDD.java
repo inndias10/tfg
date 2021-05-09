@@ -91,5 +91,39 @@ public class BBDD {
         }
 
     }
+    
+    public static boolean checkUser(String id){
+        Connection conex = null;
+        Statement sentencia;
+        ResultSet rs;
+
+        try {
+            conex = DriverManager.getConnection(Config.URL, Config.USER, Config.PASS);
+            sentencia = conex.createStatement();
+            rs = sentencia.executeQuery("Select * from usuarios where id = '" + id + "'");
+
+            // si el usuario no existe lo crea
+            if (rs.next()) {
+                return true;
+
+            } else {
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error SQL al añadir usuario");
+            return false;
+
+        } finally {
+            if (conex != null) {
+                try {
+                    conex.close();
+                } catch (SQLException ex) {
+                    System.out.println("Error cerrando conexión");
+                }
+            }
+
+        }
+    }
 
 }
