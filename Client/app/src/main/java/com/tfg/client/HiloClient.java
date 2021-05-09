@@ -25,6 +25,7 @@ public class HiloClient extends Thread {
         Mensaje msj;
         String emisor, mensaje;
         int msgType = 0;
+        int error;
         Usuarios usuario;
         Msg_Privado msjPrivado;
 
@@ -51,6 +52,21 @@ public class HiloClient extends Thread {
 
                         msjPrivado = new Msg_Privado(emisor, mensaje, "timestamp");
                         database.addMsgPrivado(msjPrivado);
+                        break;
+
+                    case 7:
+                        emisor = msj.getEmisor();
+                        error = msj.getError();
+
+                        // existe un usuario
+                        if (error == 0) {
+                            usuario = new Usuarios(emisor);
+                            database.addUsuario(usuario);
+
+                        } else if (error == 6) {
+                            // Adv: no existe el usuario a la hora de crear la conversacion
+                        }
+
                         break;
 
                     default:
