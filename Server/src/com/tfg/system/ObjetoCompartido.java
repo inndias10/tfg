@@ -39,12 +39,23 @@ public class ObjetoCompartido {
 
     public boolean removeGroupUser(String grupo, String usuario) {
         try {
-            this.grupos.get(grupo).remove(usuario);
+            BBDD.remove_user_group(usuario, grupo);
+            this.grupos.get(Integer.parseInt(grupo)).remove(usuario);
             return true;
         } catch (Exception e) {
             return false;
         }
 
+    }
+    public boolean addGroupUser(String user, String group){
+        try{
+        BBDD.add_user_group(user, group);
+        this.grupos.get(Integer.parseInt(group)).add(user);
+        return true;
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public synchronized void addUser(String id, Socket sck) {
@@ -62,6 +73,7 @@ public class ObjetoCompartido {
             return false;
         }
     }
+    
 
     public boolean sendPrivateMessage(Mensaje m) {
         ObjectOutputStream oos = null;
@@ -133,5 +145,11 @@ public class ObjetoCompartido {
             sendPrivateMessage(new Mensaje(id, id_user, null, 7, 6));
         }
     }
-//prueba de cambios
+    public boolean checkUser(String id){
+        if (BBDD.checkUser(id)) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
