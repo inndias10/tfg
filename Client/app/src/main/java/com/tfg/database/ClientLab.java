@@ -44,19 +44,24 @@ public class ClientLab {
     public List<User> getUsers() {
         return userDao.getUsers();
     }
+
     public List<Usuarios> getUsuarios() {
         return usuariosDao.getUsuarios();
     }
+
     public List<Grupos> getGrupos() {
         return gruposDao.getGrupos();
     }
+
     public List<Design> getDesign() {
         return designDao.getDesign();
     }
-    public List<Msg_Privado> getMsgPrivado () {
+
+    public List<Msg_Privado> getMsgPrivado() {
         return msgPrivadoDao.getMsgPrivados();
     }
-    public List<Msg_Grupal> getMsgGrupal () {
+
+    public List<Msg_Grupal> getMsgGrupal() {
         return msgGrupalDao.getMsgGrupal();
     }
 
@@ -71,30 +76,53 @@ public class ClientLab {
     public Usuarios getUsuario(String id) {
         return usuariosDao.getUsuario(id);
     }
+
     public void updateBloqueo(String id, boolean block) {
         usuariosDao.updateBloqueo(id, block);
     }
+
     public void cleanChat(String id) {
         msgPrivadoDao.cleanChat(id);
     }
+
     public void cleanChatGrupal(String id) {
         msgGrupalDao.cleanChat(id);
     }
+
     public void deleteUsuario(Usuarios usuario) {
         usuariosDao.deleteUsuario(usuario);
     }
+
     public void updateSilencio(String id, boolean silence) {
         usuariosDao.updateSilencio(id, silence);
     }
+
     public void updateSilencioGrupo(String id, boolean silence) {
         gruposDao.updateSilencio(id, silence);
     }
+
     public void addUsuario(Usuarios usuario) {
         usuariosDao.addUsuario(usuario);
     }
 
     public void addMsgPrivado(Msg_Privado mensaje) {
         msgPrivadoDao.addMsgPrivado(mensaje);
+    }
+
+    public String getEstado(String id) {
+        return gruposDao.getEstado(id);
+    }
+
+    public Grupos getGrupo(String id) {
+        return gruposDao.getGrupo(id);
+    }
+
+    public void deleteGroup(Grupos gr) {
+        gruposDao.deleteGroup(gr);
+    }
+
+    public void updateEstado(String id, String estado) {
+        gruposDao.updateEstado(id, estado);
     }
 
 }

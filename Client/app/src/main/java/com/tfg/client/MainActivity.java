@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.tfg.database.ClientLab;
+import com.tfg.database.tables.Grupos;
 import com.tfg.database.tables.User;
 import com.tfg.database.tables.Usuarios;
 import com.tfg.datos.Mensaje;
@@ -89,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
     // Inicia la pantalla de registro
     private void iniciarRegistro() {
         Intent i = new Intent(this, Registro.class);
-        // startActivityForResult(i, 1);
         startActivity(i);
     }
 
@@ -140,16 +140,40 @@ public class MainActivity extends AppCompatActivity {
 
             // mensaje grupal
         } else {
-            try {
-                msj = new Mensaje(me, receptor, msg, 3, 0);
-                oos.writeObject(msj);
+            if (type == 3) {
+                // mensaje texto grupal
+                try {
+                    msj = new Mensaje(me, receptor, msg, 3, 0);
+                    oos.writeObject(msj);
 
-            } catch (IOException e) {
-                // error al enviar mensaje grupal
-                e.printStackTrace();
+                } catch (IOException e) {
+                    Log.e("sendMessage", "Error al enviar mensaje de texto grupal");
+                }
+
+            } else if (type == 8) {
+                // mensaje fichero grupal
+                try {
+                    msj = new Mensaje(me, receptor, msg, 8, 0);
+                    oos.writeObject(msj);
+
+                } catch (IOException e) {
+                    Log.e("sendMessage", "Error al enviar mensaje de fichero grupal");
+                }
+
             }
 
         }
+
+        /* El código de arriba es para probar y ver qué falla. Se puede reemplazar por: */
+        /*
+        try {
+            msj = new Mensaje(me, receptor, msg, type, 0);
+            oos.writeObject(msj);
+
+        } catch (IOException e) {
+            Log.e("sendMessage", "Error al enviar mensaje");
+        }
+        */
 
     }
 
@@ -188,18 +212,27 @@ public class MainActivity extends AppCompatActivity {
 
     // método para eliminar chats
     private void deleteChat(String id, String chat) {
-        Usuarios userEliminar;
+        Usuarios usuarioEliminar;
+        Grupos grupoEliminar;
 
         // eliminar chat privado
         if (chat.equals("private")) {
             cleanChat(id, chat);
-            userEliminar = database.getUsuario(id);
-            database.deleteUsuario(userEliminar);
+            usuarioEliminar = database.getUsuario(id);
+            database.deleteUsuario(usuarioEliminar);
 
             // eliminar chat grupal
         } else {
-            cleanChat(id, chat);
             // comprobar si ha salido antes de intentar eliminar
+            if (database.getEstado(id).equals("out")) {
+                cleanChat(id, chat);
+                grupoEliminar = database.getGrupo(id);
+                database.deleteGroup(grupoEliminar);
+
+            } else {
+                // Adv: no puedes eliminar un chat grupal si no has salido.
+
+            }
 
         }
 
@@ -215,9 +248,47 @@ public class MainActivity extends AppCompatActivity {
     /* ---------- FIN FUNCIONALIDADES COMPARTIDAS ---------- */
 
 
+    /* ---------- FUNCIONALIDADES GRUPOS ---------- */
+    // método para salir de un grupo
+    private void exitGroup(String idGroup) {
+        Mensaje msj;
+
+        try {
+            database.updateEstado(idGroup, "out");
+            msj = new Mensaje(me, idGroup, null, 9, 0);
+            oos.writeObject(msj);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    // método para eliminar un usuario de un grupo
+    private void removeUserGroup(String idGroup, String idUser) {
+        Mensaje msj;
+
+        try {
+            msj = new Mensaje(me, idGroup, null, 4, 0, idUser);
+            oos.writeObject(msj);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void addUserGroup() {
+
+    }
+
+
+    /* ---------- FIN FUNCIONALIDADES GRUPOS ---------- */
+
+
     /* ---------- CREACION CONVERSACIONES ---------- */
 
-    // creación de chat privado // completar
+    // creación de chat privado
     private void createPrivate() {
         Usuarios nuevoUsuario;
         String nick;
