@@ -41,7 +41,7 @@ public class HiloHijo extends Thread {
                         objComp.sendPrivateMessage(new Mensaje(null, m.getEmisor(), null, -2, 2));
                     }
                 } else if (tipo == 2) {// crear un grupo
-                    error = objComp.addGroup(m.getReceptor(), m.getEmisor(), m.getMensaje().toString());
+                    error = objComp.addGroup(m.getReceptor(), m.getEmisor(), new String(m.getMensaje()));
                     if (!error) {
                         objComp.sendPrivateMessage(new Mensaje(null, m.getEmisor(), null, -2, 3));
                     }
