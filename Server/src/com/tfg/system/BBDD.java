@@ -16,7 +16,8 @@ import java.sql.Statement;
  * @author oscar
  */
 public class BBDD {
-    public static int addGroup(String nombre, String id_usuario, String descripcion){
+
+    public static int addGroup(String nombre, String id_usuario, String descripcion) {
         Connection conex = null;
         Statement sentencia;
         ResultSet rs;
@@ -34,14 +35,14 @@ public class BBDD {
             } else {
                 id = 1;
             }
-            sql = "insert into grupos(id,nombre,descripcion) values("+id+",'"+nombre+"','"+descripcion+"');";
+            sql = "insert into grupos(id,nombre,descripcion) values(" + id + ",'" + nombre + "','" + descripcion + "');";
             sentencia.executeUpdate(sql);
-            sql = "insert into usuarios_has_grupos(grupos_id,usuarios_id,administrador) values("+id+",'"+id_usuario+"','si');";
+            sql = "insert into usuarios_has_grupos(grupos_id,usuarios_id,administrador) values(" + id + ",'" + id_usuario + "','si');";
             sentencia.executeUpdate(sql);
             return id;
         } catch (SQLException ex) {
             System.out.println("Error SQL al añadir el grupo");
-            
+
         } finally {
             if (conex != null) {
                 try {
@@ -54,6 +55,7 @@ public class BBDD {
         }
         return id;
     }
+
     public static boolean addUser(String id, byte[] psw) {
         Connection conex = null;
         Statement sentencia;
@@ -92,4 +94,88 @@ public class BBDD {
 
     }
 
+    public static boolean checkUser(String id) {
+        Connection conex = null;
+        Statement sentencia;
+        ResultSet rs;
+
+        try {
+            conex = DriverManager.getConnection(Config.URL, Config.USER, Config.PASS);
+            sentencia = conex.createStatement();
+            rs = sentencia.executeQuery("Select * from usuarios where id = '" + id + "'");
+
+            if (rs.next()) {
+                return true;
+
+            } else {
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error SQL al añadir usuario");
+            return false;
+
+        } finally {
+            if (conex != null) {
+                try {
+                    conex.close();
+                } catch (SQLException ex) {
+                    System.out.println("Error cerrando conexión");
+                }
+            }
+
+        }
+    }
+
+    public static boolean remove_user_group(String user, String group) {
+        Connection conex = null;
+        Statement sentencia;
+        ResultSet rs;
+        String sql;
+        int id = 0;
+        try {
+            conex = DriverManager.getConnection(Config.URL, Config.USER, Config.PASS);
+            sentencia = conex.createStatement();
+            sql = "delete from usuarios_has_grupos where usuarios_id = '" + user + "' and grupos_id = " + Integer.parseInt(group) + ";";
+            sentencia.executeUpdate(sql);
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("Error SQL al añadir el grupo");
+            return false;
+        } finally {
+            if (conex != null) {
+                try {
+                    conex.close();
+                } catch (SQLException ex) {
+                    System.out.println("Error cerrando conexión");
+                }
+            }
+        }
+    }
+    
+    public static boolean add_user_group(String user, String group) {
+        Connection conex = null;
+        Statement sentencia;
+        ResultSet rs;
+        String sql;
+        int id = 0;
+        try {
+            conex = DriverManager.getConnection(Config.URL, Config.USER, Config.PASS);
+            sentencia = conex.createStatement();
+            sql = "insert into usuarios_has_grupos(usuarios_id, grupos_id, administrador) values('"+user+"', "+Integer.parseInt(group)+",'no');";
+            sentencia.executeUpdate(sql);
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("Error SQL al añadir el grupo");
+            return false;
+        } finally {
+            if (conex != null) {
+                try {
+                    conex.close();
+                } catch (SQLException ex) {
+                    System.out.println("Error cerrando conexión");
+                }
+            }
+        }
+    }
 }
