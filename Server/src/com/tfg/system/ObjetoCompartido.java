@@ -152,4 +152,11 @@ public class ObjetoCompartido {
             return false;
         }
     }
+    public boolean addAdmin(String user, String group){
+        if (BBDD.addAdmin(user, group)) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

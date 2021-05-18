@@ -49,7 +49,7 @@ public class HiloHijo extends Thread {
                     objComp.sendGroupMessage(m);
                 } else if (tipo == 4) {// eliminar un usuario de un grupo
                     if (objComp.removeGroupUser(m.getReceptor(), m.getAux())) {//primero le borro de la base de datos y le borro del hashmap del servidor y luego envio el mensaje a todos los usuarios del grupo
-                        objComp.sendPrivateMessage(new Mensaje(null, m.getAux(), ("Te han eliminado del grupo: " + m.getReceptor()).getBytes(), 10, 0));
+                        objComp.sendPrivateMessage(m);
                         objComp.sendGroupMessage(new Mensaje(null, m.getReceptor(), (m.getEmisor() + " Ha eliminado a: " + m.getAux()).getBytes(), 10, 0));
 
                     } else {//si ha ocurrido un problema al borrar de la base de datos o al eliminar del hashmap devuelvo el mensaje de error a la persona que ha intentado eliminar
@@ -72,12 +72,16 @@ public class HiloHijo extends Thread {
                     objComp.sendPrivateMessage(m);
                 } else if (tipo == 8) {// como es un mensaje en el que envian un fichero el servidor no hace nada solo lo reenvia al grupo
                     objComp.sendGroupMessage(m);
-                }else if(tipo == 9){
+                } else if (tipo == 9) {
                     if (objComp.removeGroupUser(m.getReceptor(), m.getEmisor())) {//primero intento borrar de la base de datos y del hashmap y luego envio los mensajes de que se ha salido
-                        objComp.sendPrivateMessage(new Mensaje(null, m.getReceptor(),("Te has salido del grupo: "+ m.getReceptor()).getBytes(),10,0));
-                        objComp.sendGroupMessage(new Mensaje(null,m.getReceptor(),(m.getEmisor()+ " se ha salido del grupo").getBytes(),10,0));
-                    }else{
-                        objComp.sendPrivateMessage(new Mensaje(null, m.getEmisor(),null,-2,5));
+                        objComp.sendPrivateMessage(new Mensaje(null, m.getReceptor(), ("Te has salido del grupo: " + m.getReceptor()).getBytes(), 10, 0));
+                        objComp.sendGroupMessage(new Mensaje(null, m.getReceptor(), (m.getEmisor() + " se ha salido del grupo").getBytes(), 10, 0));
+                    } else {
+                        objComp.sendPrivateMessage(new Mensaje(null, m.getEmisor(), null, -2, 5));
+                    }
+                } else if (tipo == 12) {
+                    if (objComp.addAdmin(m.getAux(), m.getReceptor())) {
+                        objComp.sendGroupMessage(new Mensaje(null, m.getReceptor(), (m.getAux() + " es ahora administrador").getBytes(), 13, 0));
                     }
                 }
             } while (tipo != -1);

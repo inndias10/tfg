@@ -178,4 +178,28 @@ public class BBDD {
             }
         }
     }
+    
+    public static boolean addAdmin(String user, String group){
+        Connection conex = null;
+        Statement sentencia;
+        String sql;
+        try {
+            conex = DriverManager.getConnection(Config.URL, Config.USER, Config.PASS);
+            sentencia = conex.createStatement();
+            sql = "update usuarios_has_grupos set administrador = 'si' where usuarios_id = '"+user+"' and grupos_id = '"+group+"';" ;
+            sentencia.executeUpdate(sql);
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("Error SQL al añadir el grupo");
+            return false;
+        } finally {
+            if (conex != null) {
+                try {
+                    conex.close();
+                } catch (SQLException ex) {
+                    System.out.println("Error cerrando conexión");
+                }
+            }
+        }
+    }
 }
