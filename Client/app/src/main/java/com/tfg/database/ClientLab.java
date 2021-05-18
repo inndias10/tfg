@@ -125,4 +125,8 @@ public class ClientLab {
         gruposDao.updateEstado(id, estado);
     }
 
+    public void addMsgGrupal(Msg_Grupal mensaje) {
+        msgGrupalDao.addMsgGrupal(mensaje);
+    }
+
 }

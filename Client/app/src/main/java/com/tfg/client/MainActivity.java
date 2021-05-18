@@ -2,8 +2,10 @@ package com.tfg.client;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Toast;
@@ -18,6 +20,8 @@ import com.trabajoFinal.chat.R;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -110,73 +114,31 @@ public class MainActivity extends AppCompatActivity {
 
     /* ---------- FUNCIONALIDADES COMPARTIDAS ---------- */
 
-    // metodo encargado de enviar mensajes individuales y grupales
-    private void sendMessage(byte[] msg, String receptor, String chat, int type) {
+    // metodo encargado del envio de mensaje de fichero
+    private void sendFileMessage(byte[] msg, String receptor, int type, String fileName, String timestamp) {
         Mensaje msj;
 
-        // mensaje privado
-        if (chat.equals("private")) {
-            if (type == 1) {
-                // mensaje texto privado
-                try {
-                    msj = new Mensaje(me, receptor, msg, 1, 0);
-                    oos.writeObject(msj);
-
-                } catch (IOException e) {
-                    Log.e("sendMessage", "Error al enviar mensaje de texto privado");
-                }
-
-            } else if (type == 6) {
-                // mensaje fichero privado
-                try {
-                    msj = new Mensaje(me, receptor, msg, 6, 0);
-                    oos.writeObject(msj);
-
-                } catch (IOException e) {
-                    Log.e("sendMessage", "Error al enviar mensaje de fichero privado");
-                }
-
-            }
-
-            // mensaje grupal
-        } else {
-            if (type == 3) {
-                // mensaje texto grupal
-                try {
-                    msj = new Mensaje(me, receptor, msg, 3, 0);
-                    oos.writeObject(msj);
-
-                } catch (IOException e) {
-                    Log.e("sendMessage", "Error al enviar mensaje de texto grupal");
-                }
-
-            } else if (type == 8) {
-                // mensaje fichero grupal
-                try {
-                    msj = new Mensaje(me, receptor, msg, 8, 0);
-                    oos.writeObject(msj);
-
-                } catch (IOException e) {
-                    Log.e("sendMessage", "Error al enviar mensaje de fichero grupal");
-                }
-
-            }
-
-        }
-
-        /* El código de arriba es para probar y ver qué falla. Se puede reemplazar por: */
-        /*
         try {
-            msj = new Mensaje(me, receptor, msg, type, 0);
+            msj = new Mensaje(me, receptor, msg, type, 0, fileName, timestamp);
             oos.writeObject(msj);
-
         } catch (IOException e) {
-            Log.e("sendMessage", "Error al enviar mensaje");
+            e.printStackTrace();
         }
-        */
 
     }
 
+    // metodo encargado de enviar mensajes individuales y grupales
+    private void sendMessage(byte[] msg, String receptor, String chat, int type, String timestamp) {
+        Mensaje msj;
+
+        try {
+            msj = new Mensaje(me, receptor, msg, type, 0, timestamp);
+            oos.writeObject(msj);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     // método para silenciar chats (grupales y privados)
     private void silenceChat(String id, boolean silence, String chat) {
@@ -278,10 +240,30 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void addUserGroup() {
+    private void addUserGroup(String idGroup, String idUser) {
+        Mensaje msj;
+
+        try {
+            msj = new Mensaje(me, idGroup, null, 5, 0, idUser);
+            oos.writeObject(msj);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
+    private void addAdmin(String idGroup, String idUser) {
+        Mensaje msj;
+
+        try {
+            msj = new Mensaje(me, idGroup, null, 12, 0, idUser);
+            oos.writeObject(msj);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /* ---------- FIN FUNCIONALIDADES GRUPOS ---------- */
 
@@ -307,21 +289,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // creación de chat grupal // completar
+    // creación de chat grupal
+    @SuppressLint("NewApi")
     private void createGrupo() {
         Mensaje msj;
-        String groupName, descripcion;
+        String groupName, descripcion, usuarios, fecha;
         int idGrupo;
 
         groupName = "nombre grupo"; //// EditText.getText
         descripcion = "descripcion";  //// EditText.getText
+        usuarios = ""; // coger usuarios split ||
+        fecha = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         try {
-            msj = new Mensaje(me, groupName, descripcion.getBytes(), 2, 0);
+            msj = new Mensaje(me, groupName, descripcion.getBytes(), 2, 0, usuarios, fecha);
             oos.writeObject(msj);
-            // envía datos del grupo al server y me devuelve el id del grupo generado por el servidor
-            // ois.readObject(msj);
-            // id = ois.getId...
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -45,7 +45,7 @@ public class HiloHijo extends Thread {
                     if (!error) {
                         objComp.sendPrivateMessage(new Mensaje(null, m.getEmisor(), null, -2, 3));
                     }
-                } else if (tipo == 3) { // mensaje de texto grupal4
+                } else if (tipo == 3) { // mensaje de texto grupal
                     objComp.sendGroupMessage(m);
                 } else if (tipo == 4) {// eliminar un usuario de un grupo
                     if (objComp.removeGroupUser(m.getReceptor(), m.getAux())) {//primero le borro de la base de datos y le borro del hashmap del servidor y luego envio el mensaje a todos los usuarios del grupo

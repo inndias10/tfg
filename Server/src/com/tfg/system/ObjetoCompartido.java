@@ -138,6 +138,7 @@ public class ObjetoCompartido {
         }
     }
     
+    // comprueba en ddbb el nick del usuario (id) 
     public void checkUser(String id, String id_user){
         if (BBDD.checkUser(id)) {
             sendPrivateMessage(new Mensaje(id, id_user, null, 7, 0));
