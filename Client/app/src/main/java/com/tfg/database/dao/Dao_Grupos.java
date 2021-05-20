@@ -12,7 +12,10 @@ public interface Dao_Grupos {
     List<Grupos> getGrupos();
 
     @Query("SELECT estado FROM Grupos WHERE id_nombre = :id")
-    String estado(String id);
+    String getEstado(String id);
+
+    @Query("SELECT * FROM Grupos WHERE id_nombre = :id")
+    Grupos getGrupo(String id);
 
     @Insert
     void addGrupo(Grupos grupo);

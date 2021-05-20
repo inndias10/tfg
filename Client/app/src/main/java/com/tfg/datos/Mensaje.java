@@ -3,11 +3,23 @@ package com.tfg.datos;
 import java.io.Serializable;
 
 public class Mensaje implements Serializable {
+
     private String emisor;
     private String receptor;
     private byte[] mensaje;
     private int tipo;
     private int error;
+    private String aux;
+    private String timestamp;
+
+    public Mensaje(String emisor, String receptor, byte[] mensaje, int tipo, int error, String aux) {
+        this.emisor = emisor;
+        this.receptor = receptor;
+        this.mensaje = mensaje;
+        this.tipo = tipo;
+        this.error = error;
+        this.aux = aux;
+    }
 
     public Mensaje(String emisor, String receptor, byte[] mensaje, int tipo, int error) {
         this.emisor = emisor;
@@ -15,6 +27,16 @@ public class Mensaje implements Serializable {
         this.mensaje = mensaje;
         this.tipo = tipo;
         this.error = error;
+    }
+
+    public Mensaje(String emisor, String receptor, byte[] mensaje, int tipo, int error, String aux, String timestamp) {
+        this.emisor = emisor;
+        this.receptor = receptor;
+        this.mensaje = mensaje;
+        this.tipo = tipo;
+        this.error = error;
+        this.aux = aux;
+        this.timestamp = timestamp;
     }
 
     public String getReceptor() {
@@ -53,8 +75,24 @@ public class Mensaje implements Serializable {
         return mensaje;
     }
 
+    public String getAux() {
+        return aux;
+    }
+
+    public void setAux(String aux) {
+        this.aux = aux;
+    }
+
     public void setMensaje(byte[] mensaje) {
         this.mensaje = mensaje;
     }
-}
 
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+}

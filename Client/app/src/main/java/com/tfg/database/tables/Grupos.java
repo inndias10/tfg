@@ -36,4 +36,54 @@ public class Grupos {
         this.administrador = administrador;
     }
 
+    @NonNull
+    public String getId() {
+        return id;
+    }
+
+    public void setId(@NonNull String id) {
+        this.id = id;
+    }
+
+    @NonNull
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(@NonNull String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public boolean isAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(boolean administrador) {
+        this.administrador = administrador;
+    }
+
+    public boolean isSilencio() {
+        return silencio;
+    }
+
+    public void setSilencio(boolean silencio) {
+        this.silencio = silencio;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
 }
