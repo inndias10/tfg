@@ -41,7 +41,7 @@ public class HiloHijo extends Thread {
                         objComp.sendPrivateMessage(new Mensaje(null, m.getEmisor(), null, -2, 2));
                     }
                 } else if (tipo == 2) {// crear un grupo
-                    error = objComp.addGroup(m.getReceptor(), m.getEmisor(), new String(m.getMensaje()));
+                    error = objComp.addGroup(m.getReceptor(), m.getEmisor(), new String(m.getMensaje()),m.getAux(), m.getTimestamp());
                     if (!error) {
                         objComp.sendPrivateMessage(new Mensaje(null, m.getEmisor(), null, -2, 3));
                     }
@@ -70,8 +70,10 @@ public class HiloHijo extends Thread {
                     }
                 } else if (tipo == 6) {//como es un mensaje en el que envian un fichero el servidor solo lo reenvia no hace nada
                     objComp.sendPrivateMessage(m);
+
                 } else if (tipo == 8) {// como es un mensaje en el que envian un fichero el servidor no hace nada solo lo reenvia al grupo
                     objComp.sendGroupMessage(m);
+
                 } else if (tipo == 9) {
                     if (objComp.removeGroupUser(m.getReceptor(), m.getEmisor())) {//primero intento borrar de la base de datos y del hashmap y luego envio los mensajes de que se ha salido
                         objComp.sendPrivateMessage(new Mensaje(null, m.getReceptor(), ("Te has salido del grupo: " + m.getReceptor()).getBytes(), 10, 0));
