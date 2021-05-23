@@ -5,8 +5,6 @@
  */
 package com.tfg.system;
 
-import java.io.*;
-import java.net.*;
 
 /**
  *
@@ -17,7 +15,10 @@ public class MainServer {
     public static void main(String[] args) {
         ObjetoCompartido objComp = new ObjetoCompartido();
         HiloHijoServerLogin hhsl = new HiloHijoServerLogin(objComp);
+        HiloHijoServer hhs = new HiloHijoServer(objComp);
         hhsl.start();
+        hhs.start();
+        System.out.println("----- SERVER ARRANCADO -----");
 
     }
 

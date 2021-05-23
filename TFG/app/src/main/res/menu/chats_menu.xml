@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/crearConversacion" android:title="@string/mnuCrearConver"/>
+    <item
+        android:id="@+id/eliminarChat"
+        android:title="@string/mnuEliminarChat" />
+    <item android:id="@+id/configuracion" android:title="@string/mnuConfiguracion"/>
+    <item android:id="@+id/logout" android:title="@string/mnuLogout" />
+</menu>

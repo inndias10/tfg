@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TFG</string>
+    <string name="txtUsuario">Enter a username:</string>
+    <string name="txtContrasenna">Enter the password:</string>
+    <string name="txtRegistro">"Don't you have an account?\nCreate an account by clicking the button below"</string>
+    <string name="btnLogin">Log In</string>
+    <string name="btnSalir">Exit</string>
+
+    <string name="mnuConfiguracion">Settings</string>
+    <string name="mnuLogout">Log Out</string>
+    <string name="mnuEliminarChat">Delete chat</string>
+    <string name="mnuSilenciar">Silence chat</string>
+    <string name="mnuBloquear">Block chat</string>
+    <string name="mnuEliminarMsgs">Clean up chat</string>
+    <string name="mnuCrearConver">Add conversation</string>
+    <string name="mnuAnnadirMiembro">Add member</string>
+    <string name="mnuEliminarMienbro">Delete member</string>
+    <string name="privados">Privates</string>
+    <string name="grupos">Groups</string>
+
+    <string name="txtFondo">Background</string>
+    <string name="rbtnColor">Color</string>
+    <string name="rbtnImagen">Picture</string>
+    <string name="txtFuente">Font</string>
+    <string name="txtTamaño">Size</string>
+    <string name="txtTipo">Type</string>
+    <string name="btnGuardar">Save</string>
+    <string name="btnCancelar">Cancel</string>
+    <string name="titulo">Select the type of conversation to create:</string>
+</resources>
