@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TFG</string>
+
+    <!-- Layout de login -->
+    <string name="txtUsuario">Introduce el nombre de usuario:</string>
+    <string name="txtContrasenna">Introduce la contraseña:</string>
+    <string name="txtRegistro">"¿No tienes cuenta?\nCrea una pulsando el botón de abajo"</string>
+    <string name="btnLogin">Iniciar sesión</string>
+    <string name="btnSalir">Salir</string>
+
+    <!-- Menús -->
+    <string name="mnuConfiguracion">Configuración</string>
+    <string name="mnuLogout">Cerrar sesión</string>
+    <string name="mnuEliminarChat">Eliminar chat</string>
+    <string name="mnuSilenciar">Silenciar chat</string>
+    <string name="mnuBloquear">Bloquear chat</string>
+    <string name="mnuEliminarMsgs">Vaciar chat</string>
+    <string name="mnuCrearConver">Añadir conversación</string>
+    <string name="mnuAnnadirMiembro">Añadir miembro</string>
+    <string name="mnuEliminarMienbro">Eliminar miembro</string>
+
+
+    <string name="privados">Privados</string>
+    <string name="grupos">Grupos</string>
+
+    <!-- Layout de confifguración -->
+    <string name="txtFondo">Fondo</string>
+    <string name="rbtnColor">Color</string>
+    <string name="rbtnImagen">Imagen</string>
+    <string name="txtFuente">Fuente</string>
+    <string name="txtTamaño">Tamaño</string>
+    <string name="txtTipo">Tipo</string>
+    <string name="btnGuardar">Guardar</string>
+    <string name="btnCancelar">Cancelar</string>
+
+    <!-- Cuadro de diálogo -->
+    <string name="titulo">Selecciona el tipo de conversacion a crear:</string>
+    <array name="tipos">
+        <item>Privada</item>
+        <item>Grupal</item>
+    </array>
+</resources>

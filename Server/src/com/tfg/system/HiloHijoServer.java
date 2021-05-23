@@ -27,7 +27,7 @@ public class HiloHijoServer extends Thread{
 
         try {
             sockServ = new ServerSocket(6000);
-            System.out.println("----- SERVER ARRANCADO -----");
+            System.out.println("----- Hilo main server arrancado -----");
 
             // bucle infinito recibiendo usuarios para logearse
             do {

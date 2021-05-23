@@ -27,7 +27,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class Registro extends AppCompatActivity {
-    public final String HOST = "192.168.1.47";
+    public final String HOST = "192.168.1.77";
     public final int PUERTO = 6100;
 
     EditText etNombre;
