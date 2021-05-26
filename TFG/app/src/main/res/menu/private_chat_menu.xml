@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/silenciar" android:title="@string/mnuSilenciar" />
+    <item android:id="@+id/bloquear" android:title="@string/mnuBloquear" />
+    <item android:id="@+id/eliminarMsjs" android:title="@string/mnuEliminarMsgs" />
+</menu>
