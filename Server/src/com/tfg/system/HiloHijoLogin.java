@@ -53,10 +53,6 @@ public class HiloHijoLogin extends Thread {
 
                             break;
 
-                        case 1:
-
-                            break;
-
                         default:
                             // tipo de mensaje inexistente
                             break;
@@ -67,6 +63,7 @@ public class HiloHijoLogin extends Thread {
 
         } catch (IOException ex) {
             System.out.println("Error I/O HHServer");
+            ex.printStackTrace();
 
         } catch (ClassNotFoundException ex) {
             System.out.println("Clase Mensaje inexistente HHServer");
