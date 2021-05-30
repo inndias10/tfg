@@ -40,7 +40,4 @@
         <item>Privada</item>
         <item>Grupal</item>
     </array>
-
-    <string name="btnEnviar">Enviar</string>
-    <string name="escribe">Escribe un mesaje...</string>
 </resources>

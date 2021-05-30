@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">TFG</string>
-
-    <!-- Login layout -->
     <string name="txtUsuario">Enter a username:</string>
     <string name="txtContrasenna">Enter the password:</string>
     <string name="txtRegistro">"Don't you have an account?\nCreate an account by clicking the button below"</string>
     <string name="btnLogin">Log In</string>
     <string name="btnSalir">Exit</string>
 
-    <!-- Menu -->
     <string name="mnuConfiguracion">Settings</string>
     <string name="mnuLogout">Log Out</string>
     <string name="mnuEliminarChat">Delete chat</string>
@@ -19,12 +16,9 @@
     <string name="mnuCrearConver">Add conversation</string>
     <string name="mnuAnnadirMiembro">Add member</string>
     <string name="mnuEliminarMienbro">Delete member</string>
-
-
     <string name="privados">Privates</string>
     <string name="grupos">Groups</string>
 
-    <!-- Settings layout -->
     <string name="txtFondo">Background</string>
     <string name="rbtnColor">Color</string>
     <string name="rbtnImagen">Picture</string>
@@ -33,14 +27,5 @@
     <string name="txtTipo">Type</string>
     <string name="btnGuardar">Save</string>
     <string name="btnCancelar">Cancel</string>
-
-    <!-- Alert Dialog -->
     <string name="titulo">Select the type of conversation to create:</string>
-    <array name="tipos">
-        <item>Private</item>
-        <item>Group</item>
-    </array>
-
-    <string name="btnEnviar">Send</string>
-    <string name="escribe">Write a message...</string>
 </resources>

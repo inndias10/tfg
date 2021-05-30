@@ -24,16 +24,20 @@ public class HiloHijoLogin extends Thread {
         ObjectOutputStream oos = null;
         Mensaje msj;
         int tipo;
-        boolean resul;
+        boolean resul = true;
+        boolean salir = false;
 
         System.out.println("Socket LOGIN conectado: " + this.client);
 
         try {
+
+            ois = new ObjectInputStream(this.client.getInputStream());
+            oos = new ObjectOutputStream(this.client.getOutputStream());
+
             do {
-                ois = new ObjectInputStream(this.client.getInputStream());
-                oos = new ObjectOutputStream(this.client.getOutputStream());
 
                 msj = (Mensaje) ois.readObject();
+                System.out.println("Mensaje recibido");
                 tipo = msj.getTipo();
 
                 if (tipo != -1) {
@@ -45,11 +49,15 @@ public class HiloHijoLogin extends Thread {
                             if (resul) {
                                 msj = new Mensaje(null, null, null, 0, 0);
                                 oos.writeObject(msj);
-                                BBDD.addUser(msj.getEmisor(),msj.getMensaje());
+                                BBDD.addUser(msj.getEmisor(), msj.getMensaje());
+                                salir = false;
                             } else {
                                 msj = new Mensaje(null, null, null, 0, 1);
                                 oos.writeObject(msj);
+                                salir = true;
                             }
+
+                            System.out.println("Mensaje enviado");
 
                             break;
 
@@ -59,7 +67,7 @@ public class HiloHijoLogin extends Thread {
                     }
                 }
 
-            } while (tipo != 0);
+            } while (salir);
 
         } catch (IOException ex) {
             System.out.println("Error I/O HHServer");

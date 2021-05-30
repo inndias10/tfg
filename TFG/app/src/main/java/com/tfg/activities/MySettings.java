@@ -9,7 +9,6 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.tfg.R;
 
@@ -19,7 +18,7 @@ public class MySettings extends AppCompatActivity {
 
     ArrayAdapter adp;
 
-    ConstraintLayout c;
+    //ConstraintLayout c;
     RadioGroup rdgFondo;
     RadioButton rbtnColor, rbtnImagen;
     Spinner spnFondo, spnTamanyo, spnTipo;
@@ -35,7 +34,7 @@ public class MySettings extends AppCompatActivity {
         spnTamanyo = findViewById(R.id.tamanyos);
         //spnTipo = findViewById(R.id.tipografias);
         rdgFondo = findViewById(R.id.radioGroup);
-        c = findViewById(R.id.LayoutConfiguracion);
+        //c = findViewById(R.id.LayoutConfiguracion);
         fondo = new ArrayList<>();
         tamanyos = new ArrayList<>();
         tipo = new ArrayList<>();
@@ -49,7 +48,7 @@ public class MySettings extends AppCompatActivity {
                 }
             }
         });
-        tamanyoTexto();
+        tamanyo();
         spnTamanyo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -81,15 +80,15 @@ public class MySettings extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (parent.getItemAtPosition(position).equals("Rojo")) {
-                    c.setBackgroundColor(getResources().getColor(R.color.red));
+                    //c.setBackgroundColor(getResources().getColor(R.color.red));
                 } else if (parent.getItemAtPosition(position).equals("Azul")) {
-                    c.setBackgroundColor(getResources().getColor(R.color.blue));
+                    //c.setBackgroundColor(getResources().getColor(R.color.blue));
                 } else if (parent.getItemAtPosition(position).equals("Verde")) {
-                    c.setBackgroundColor(getResources().getColor(R.color.green));
+                    //c.setBackgroundColor(getResources().getColor(R.color.green));
                 } else if (parent.getItemAtPosition(position).equals("Blanco")) {
-                    c.setBackgroundColor(getResources().getColor(R.color.white));
+                    //c.setBackgroundColor(getResources().getColor(R.color.white));
                 } else if (parent.getItemAtPosition(position).equals("Negro")) {
-                    c.setBackgroundColor(getResources().getColor(R.color.black));
+                    //c.setBackgroundColor(getResources().getColor(R.color.black));
                 }
             }
 
@@ -131,7 +130,7 @@ public class MySettings extends AppCompatActivity {
         });
     }
 
-    public void tamanyoTexto() {
+    public void tamanyo() {
         tamanyos.add("Pequeño");
         tamanyos.add("Mediano");
         tamanyos.add("Grande");

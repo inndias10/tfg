@@ -26,5 +26,8 @@ public interface Dao_Msg_Privado {
             "WHERE mp2.id IS NULL ORDER BY id DESC")
     List<Msg_Privado> getLastMessages();
 
+    @Query("SELECT * FROM Msg_Privado WHERE id_usuario = :id")
+    List<Msg_Privado> getMessagesUser(String id);
+
 
 }

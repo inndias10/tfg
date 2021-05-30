@@ -8,38 +8,34 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-import com.google.android.material.tabs.TabLayout;
 import com.tfg.activities.MySettings;
 import com.tfg.adapters.*;
 import com.tfg.R;
 import com.tfg.database.db.ClientLab;
+import com.tfg.system.Methods;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.List;
 
 public class MyChats extends AppCompatActivity {
-    public final String HOST = "192.168.1.77";
+    public final String HOST = "192.168.1.42";
     public final int PORT = 6000;
 
     Methods meth;
     MyAdapter adapter;
     ClientLab database;
-    ListView lv;
 
     Socket client;
     String me;
     boolean fromPause = false;
-
-    TabLayout tbl;
-    ArrayList<String> conversaciones;
-    ArrayList<String> mensajes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,57 +53,34 @@ public class MyChats extends AppCompatActivity {
         } else {
             initialize();
         }
-        tbl = (TabLayout) findViewById(R.id.tipoConversacion);
-        lv = (ListView) findViewById(R.id.listadoConversaciones);
-        conversaciones = new ArrayList<>();
-        mensajes = new ArrayList<>();
-        tbl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getText().toString().equals("Privados")) {
-                    if (adapter != null) {
-                        adapter.clear();
-                    } else {
-                        //Método que llama a la base de datos para sacar la info de los privados y guardarlo en el ArrayList
-                        mostrarPrivados();
-                        actualizarListado();
-                    }
-                } else if (tab.getText().toString().equals("Grupos")) {
-                    if (adapter != null) {
-                        adapter.clear();
-                    } else {
-                        //Método que llama a la base de datos para sacar la info de los grupos y guardarlo en el ArrayList
-                        mostrarGrupos();
-                        actualizarListado();
-                    }
-                }
-            }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
     }
 
     private void initialize() {
         HiloClient hc;
+        DataOutputStream dos = null;
 
         try {
             client = new Socket(HOST, PORT);
             database = ClientLab.get(this);
             meth = new Methods(database, client, me);
-            hc = new HiloClient(client, database, me);
+            hc = new HiloClient(client, meth);
             hc.start();
+
+            dos = new DataOutputStream(this.client.getOutputStream());
+            dos.writeUTF(me);
 
         } catch (IOException e) {
             Toast.makeText(this, "Error al conectar cliente con servidor", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+
+        } finally {
+            try {
+                dos.close();
+            } catch (IOException e) {
+                // error cerrando dos
+                e.printStackTrace();
+            }
         }
 
     }
@@ -175,19 +148,7 @@ public class MyChats extends AppCompatActivity {
 
     }
 
-    /*public void prueba() {
-    }*/
-
-    public void actualizarListado() {
-        adapter = new MyAdapter(this, conversaciones, mensajes);
-        lv.setAdapter(adapter);
+    public void prueba() {
     }
 
-    public void mostrarPrivados() {
-
-    }
-
-    public void mostrarGrupos() {
-
-    }
 }

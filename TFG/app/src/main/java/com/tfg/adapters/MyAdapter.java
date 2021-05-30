@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import com.tfg.R;
-import com.tfg.system.MyChats;
 
 public class MyAdapter extends ArrayAdapter<String> {
 

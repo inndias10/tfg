@@ -25,21 +25,22 @@ public class Msg_Grupal {
     @NonNull
     private String mensaje;
 
-    @ColumnInfo(name = "timestamp")
+    @ColumnInfo(name = "type")
     @NonNull
+    private String type;
+
+    @ColumnInfo(name = "timestamp")
     private String timestamp;
 
 
-
     /* --- CONSTRUCTOR --- */
-    public Msg_Grupal(@NonNull String idGrupo, @NonNull String idUsuario, @NonNull String mensaje, @NonNull String timestamp) {
+    public Msg_Grupal(@NonNull String idGrupo, @NonNull String idUsuario, @NonNull String mensaje, @NonNull String type, @NonNull String timestamp) {
         this.idGrupo = idGrupo;
         this.idUsuario = idUsuario;
         this.mensaje = mensaje;
+        this.type = type;
         this.timestamp = timestamp;
     }
-
-
 
     /* --- GETTER & SETTER */
     public int getId() {
@@ -86,4 +87,12 @@ public class Msg_Grupal {
         this.timestamp = timestamp;
     }
 
+    @NonNull
+    public String getType() {
+        return type;
+    }
+
+    public void setType(@NonNull String type) {
+        this.type = type;
+    }
 }

@@ -25,4 +25,7 @@ public interface Dao_Msg_Grupal {
             "WHERE mg2.id IS NULL ORDER BY id DESC")
     List<Msg_Grupal> getLastMessages();
 
+    @Query("SELECT * FROM Msg_Grupal WHERE id_grupo = :id")
+    List<Msg_Grupal> getMessagesGroup(String id);
+
 }

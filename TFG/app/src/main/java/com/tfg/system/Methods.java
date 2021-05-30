@@ -1,12 +1,9 @@
 package com.tfg.system;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.tfg.database.db.ClientLab;
+import com.tfg.database.tables.Contacts;
 import com.tfg.database.tables.Grupos;
 import com.tfg.database.tables.Msg_Grupal;
 import com.tfg.database.tables.Msg_Privado;
@@ -16,9 +13,9 @@ import com.tfg.datos.Mensaje;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.security.acl.Group;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,29 +30,21 @@ public class Methods extends AppCompatActivity {
         this.database = database;
         this.client = client;
         this.me = me;
-
         setObjectOutput(client);
 
     }
 
 
-    private void setObjectOutput(Socket client) {
-        try {
-            oos = new ObjectOutputStream(this.client.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     /* ---------- FUNCIONALIDADES COMPARTIDAS ---------- */
 
-    // metodo encargado del envio de mensaje de fichero
-    private void sendFileMessage(byte[] msg, String receptor, int type, String fileName, String timestamp) {
+    // envío de mensaje de fichero privados (type 6) y grupales (type 8) // terminar comprobar si el usuario está bloqueado y si SÍ no enviar
+    public void sendFileMessage(int type, byte[] content, String receptor, String fileName, String timestamp) {
         Mensaje msj;
 
         try {
-            msj = new Mensaje(me, receptor, msg, type, 0, fileName, timestamp);
+            msj = new Mensaje(me, receptor, content, type, 0, fileName, timestamp);
             oos.writeObject(msj);
+            showOtherMessage(type, receptor, me, fileName, timestamp);
 
         } catch (IOException e) {
             // error al enviar fichero
@@ -64,13 +53,14 @@ public class Methods extends AppCompatActivity {
 
     }
 
-    // metodo encargado de enviar mensajes individuales y grupales
-    private void sendMessage(byte[] msg, String receptor, String chat, int type, String timestamp) {
+    // envío mensajes de texto privados (type 1) y grupales (type 3) // terminar
+    public void sendMessage(int type, String mensaje, String receptor, String timestamp) {
         Mensaje msj;
 
         try {
-            msj = new Mensaje(me, receptor, msg, type, 0, timestamp);
+            msj = new Mensaje(me, receptor, mensaje.getBytes(), type, 0, timestamp);
             oos.writeObject(msj);
+            showTextMessage(type, receptor, me, mensaje, timestamp);
 
         } catch (IOException e) {
             // error al enviar mensaje de texto
@@ -79,30 +69,29 @@ public class Methods extends AppCompatActivity {
 
     }
 
-    // método para silenciar chats (grupales y privados)
-    private void silenceChat(String id, boolean silence, String chat) {
+    // silenciar chats // completo
+    public void silenceChat(int chat, String id, boolean silence) {
 
-        if (chat.equals("private")) {
-            // silencio chat privado
+        // privados
+        if (chat == 1) {
             database.updateSilencio(id, silence);
 
+            // grupales
         } else {
-            // silencio chat grupal
             database.updateSilencioGrupo(id, silence);
 
         }
 
     }
 
+    // vaciar chats // completo
+    public void cleanChat(int chat, String id) {
 
-    // método para vaciar una conversación
-    private void cleanChat(String id, String chat) {
-
-        // clean chat privado
-        if (chat.equals("private")) {
+        // privados
+        if (chat == 1) {
             database.cleanChat(id);
 
-            // clean chat grupal
+            // grupales
         } else {
             database.cleanChatGrupal(id);
 
@@ -110,23 +99,22 @@ public class Methods extends AppCompatActivity {
 
     }
 
-
-    // método para eliminar chats
-    private void deleteChat(String id, String chat) {
+    // eliminar chats // completo
+    public void deleteChat(int chat, String id) {
         Usuarios usuarioEliminar;
         Grupos grupoEliminar;
 
-        // eliminar chat privado
-        if (chat.equals("private")) {
-            cleanChat(id, chat);
+        // privados
+        if (chat == 1) {
+            cleanChat(chat, id);
             usuarioEliminar = database.getUsuario(id);
             database.deleteUsuario(usuarioEliminar);
 
-            // eliminar chat grupal
+            // grupales
         } else {
             // comprobar si ha salido antes de intentar eliminar
             if (database.getEstado(id).equals("out")) {
-                cleanChat(id, chat);
+                cleanChat(chat, id);
                 grupoEliminar = database.getGrupo(id);
                 database.deleteGroup(grupoEliminar);
 
@@ -139,25 +127,40 @@ public class Methods extends AppCompatActivity {
 
     }
 
-
-    // método para bloquear o desbloquear un usuario // completar
-    private void blockChat(String id, boolean block) {
+    // bloquear o desbloquear un usuario // completo
+    public void blockChat(String id, boolean block) {
         database.updateBloqueo(id, block);
-        // se comprobará antes de recibir el mensaje de usuario B si usuario A tiene bloqueado a usuario B
     }
 
     /* ---------- FIN FUNCIONALIDADES COMPARTIDAS ---------- */
 
 
+
+
     /* ---------- FUNCIONALIDADES GRUPOS ---------- */
-    // método para salir de un grupo
-    private void exitGroup(String idGroup) {
+
+    // type = (4: expulsar, 5: añadir, 12: asignar admin)
+    public void adminFunctions(int type, String idGroup, String idUser) {
         Mensaje msj;
 
         try {
-            database.updateEstado(idGroup, "out");
+            msj = new Mensaje(me, idGroup, null, type, 0, idUser);
+            oos.writeObject(msj);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // salir de un grupo
+    private void communicateExitGroup(String idGroup) {
+        Mensaje msj;
+
+        try {
+
             msj = new Mensaje(me, idGroup, null, 9, 0);
             oos.writeObject(msj);
+            exitGroup(idGroup, me, "Has abandonado el grupo");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -165,57 +168,34 @@ public class Methods extends AppCompatActivity {
 
     }
 
-    // método para eliminar un usuario de un grupo
-    private void removeUserGroup(String idGroup, String idUser) {
-        Mensaje msj;
+    public void exitGroup(String idGroup, String idUser, String mensaje) {
+        groupalInfoMsgRcv(idGroup, mensaje);
 
-        try {
-            msj = new Mensaje(me, idGroup, null, 4, 0, idUser);
-            oos.writeObject(msj);
+        if (idUser.equals(me)) {
+            database.updateEstado(idGroup, "out");
 
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
     }
 
-    private void addUserGroup(String idGroup, String idUser) {
-        Mensaje msj;
+    public void newAdmin(String idGroup, String idUser, String mensaje) {
+        groupalInfoMsgRcv(idGroup, mensaje);
 
-        try {
-            msj = new Mensaje(me, idGroup, null, 5, 0, idUser);
-            oos.writeObject(msj);
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (idUser.equals(me)) {
+            database.updateAdmin(idGroup);
         }
 
     }
 
-    private void addAdmin(String idGroup, String idUser) {
-        Mensaje msj;
-
-        try {
-            msj = new Mensaje(me, idGroup, null, 12, 0, idUser);
-            oos.writeObject(msj);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /* ---------- FIN FUNCIONALIDADES GRUPOS ---------- */
 
 
     /* ---------- CREACION CONVERSACIONES ---------- */
 
-    // creación de chat privado
-    private void createPrivate() {
-        Usuarios nuevoUsuario;
-        String nick;
+    // comprueba con el servidor si puede crear el privado // completo
+    private void prepareCreatePrivate(String nick) {
         Mensaje msj;
-
-        nick = "nickname"; //// EditText.getText
 
         try {
             msj = new Mensaje(me, nick, null, 7, 0);
@@ -227,11 +207,9 @@ public class Methods extends AppCompatActivity {
 
     }
 
-
-    // creación de chat grupal
-    private void createGrupo(String group, String descripcion, String usuarios) {
+    // envia al server datos para crear grupo
+    private void prepareCreateGroup(String group, String descripcion, String usuarios) {
         Mensaje msj;
-        int idGrupo;
 
         try {
             msj = new Mensaje(me, group, descripcion.getBytes(), 2, 0, usuarios);
@@ -243,45 +221,249 @@ public class Methods extends AppCompatActivity {
 
     }
 
+    // creación de chat privado una vez existe el nick // completo
+    public void createPrivateConversation(int error, String nick) {
+        if (error == 0) {
+            database.addContact(new Contacts(nick));
+            // timeout con mensaje de que existe y mostrar activity conversacion privada
+
+        } else {
+            // Adv no existe el usuario
+        }
+
+    }
+
+    // crea el nuevo usuario con el mensaje de inicio de conversacion
+    public void createPrivate(String id, String emisor, String mensaje, String type, String timestamp) {
+
+        // 'me' crea la conversacion
+        if (emisor.equals(me)) {
+            database.addUsuario(new Usuarios(id));
+            if (type.equals("text")) {
+                showTextMessage(1, id, me, mensaje, timestamp);
+            } else {
+                showOtherMessage(1, id, me, type, timestamp);
+            }
+
+            // otro ha creado una conversacion privada con 'me'
+        } else {
+            database.addUsuario(new Usuarios(emisor));
+            if (type.equals("text")) {
+                showTextMessage(1, emisor, emisor, mensaje, timestamp);
+            } else {
+                showOtherMessage(1, emisor, emisor, type, timestamp);
+            }
+
+        }
+
+    }
+
+    public void createGroup(String admin, String id, String fecha, String descripcion, String mensaje) {
+
+        // 'me' es el creador
+        if (me.equals(admin)) {
+            database.addGroup(new Grupos(id, fecha, descripcion, true));
+            groupalInfoMsgRcv(id, mensaje);
+            // crear act conversacion grupal
+
+            // alguien crea un grupo con 'me'
+        } else {
+            database.addGroup(new Grupos(id, fecha, descripcion, false));
+            groupalInfoMsgRcv(id, mensaje);
+
+        }
+
+    }
+
+
     /* ---------- FIN CREACION CONVERSACIONES ---------- */
 
-    /* ----- OTROS ----- */
 
-    // devuelve un hashmap con los ultimos mensajes de cada usuario para el menu "privados"
-    private HashMap<String, String[]> lastPrivateMessages() {
-        HashMap<String, String[]> mensajes;
-        List<Msg_Privado> msjsDatabase;
-        String[] datos;
 
-        msjsDatabase = database.getLastPrivateMessages();
-        mensajes = new HashMap<>();
 
-        for (Msg_Privado msp : msjsDatabase) {
-            mensajes.put(msp.getIdUsuario(), new String[]{msp.getIdEmisor(), msp.getMensaje(), msp.getTimestamp()});
+    /* ----- DATABASE QUERIES ----- */
+
+    // devuelve un hashmap con los ultimos mensajes de las conversaciones privadas '1' y grupales '2' // completo
+    public HashMap<String, ArrayList<String>> lastMessages(int chat) {
+        List<Msg_Privado> msjsPrivados;
+        List<Msg_Grupal> msjsGrupales;
+        HashMap<String, ArrayList<String>> data;
+        ArrayList<String> header, content, time;
+
+        data = new HashMap<>();
+        header = new ArrayList<>();
+        content = new ArrayList<>();
+        time = new ArrayList<>();
+
+        if (chat == 1) {
+            msjsPrivados = database.getLastMsgPrivado();
+            for (Msg_Privado msp : msjsPrivados) {
+                header.add(msp.getIdUsuario());
+                content.add(msp.getIdEmisor() + ": " + msp.getMensaje());
+                time.add(msp.getTimestamp());
+            }
+
+        } else if (chat == 2) {
+            msjsGrupales = database.getLastMsgGrupal();
+            for (Msg_Grupal msg : msjsGrupales) {
+                header.add(msg.getIdGrupo());
+                content.add(msg.getMensaje());
+                time.add(msg.getTimestamp());
+            }
+
         }
 
-        return mensajes;
+        data.put("header", header);
+        data.put("content", content);
+        data.put("time", time);
+
+        return data;
+
+    }
+
+    // devuelve hashmap con arraylist para rellenar la activity de la conversacion con los mensajes
+    public HashMap<String, ArrayList<String>> allMessages(int chat, String id) {
+        List<Msg_Privado> msjsPrivado;
+        List<Msg_Grupal> msjsGrupo;
+        HashMap<String, ArrayList<String>> data;
+        ArrayList<String> emisor, mensaje, time;
+
+        data = new HashMap<>();
+        emisor = new ArrayList<>();
+        mensaje = new ArrayList<>();
+        time = new ArrayList<>();
+
+        if (chat == 1) {
+            msjsPrivado = database.getMessagesUser(id);
+            for (Msg_Privado msp : msjsPrivado) {
+                emisor.add(msp.getIdUsuario());
+                mensaje.add(msp.getMensaje());
+                time.add(msp.getTimestamp());
+
+            }
+
+        } else if (chat == 2) {
+            msjsGrupo = database.getMessagesGroup(id);
+            for (Msg_Grupal msg : msjsGrupo) {
+                emisor.add(msg.getIdUsuario());
+                mensaje.add(msg.getMensaje());
+                time.add(msg.getTimestamp());
+
+            }
+
+        }
+
+        data.put("emisor", emisor);
+        data.put("mensajes", mensaje);
+        data.put("time", time);
+
+        return data;
+
+    }
+
+    // devuelve al con todos los contactos para cargarlos a la hora de crear un grupo
+    public ArrayList<String> allContacts() {
+        return new ArrayList<>(database.getContacts());
+    }
+
+
+    /* ----- FIN DATABASE QUERIES ----- */
+
+
+
+
+    /* ----- ENLACE CON INTERFAZ ----- */
+    /* -- Métodos para mostrar mensajes en la interfaz -- */
+
+    // muestra el mensaje texto donde haga falta y lo guarda en ddbb
+    public void showTextMessage(int chat, String conver, String emisor, String mensaje, String timestamp) {
+        Msg_Privado msp;
+        Msg_Grupal msg;
+
+        // msj privado
+        if (chat == 1) {
+            // print mensaje
+            newPrivateMessage(conver, emisor, mensaje, "text", timestamp);
+
+            // msj grupal
+        } else if (chat == 3) {
+            // print mensaje
+            newGroupMessage(conver, emisor, mensaje, "text", timestamp);
+
+        }
+
+    }
+
+    /* muestra el mensaje fichero donde haga falta y lo guarda en ddbb */
+    public void showOtherMessage(int chat, String conver, String emisor, String filename, String timestamp) {
+        Msg_Privado msp;
+        Msg_Grupal msg;
+        String ext;
+
+        ext = filename.split(".")[filename.split(".").length - 1];
+        // privado
+        if (chat == 6) {
+            // print mensaje
+            newPrivateMessage(conver, emisor, filename, ext, timestamp);
+
+            // grupal
+        } else if (chat == 8) {
+            // print message
+            newGroupMessage(conver, emisor, filename, ext, timestamp);
+
+        }
+
+    }
+
+    /* mensajes informacion sobre grupo */
+    public void groupalInfoMsgRcv(String grupo, String mensaje) {
+        // print mensaje
+        newGroupMessage(grupo, "info", mensaje, null, null);
 
     }
 
 
-    // devuelve un hashmap con los ultimos mensajes grupales para el menu "grupos"
-    private HashMap<String, String[]> lastGroupMessages() {
-        HashMap<String, String[]> mensajes;
-        List<Msg_Grupal> msjsDatabase;
-        String[] datos;
+    /* ----- FIN ENLACE CON INTERFAZ ----- */
 
-        msjsDatabase = database.getLastGroupMessages();
-        mensajes = new HashMap<>();
 
-        for (Msg_Grupal msg : msjsDatabase) {
-            mensajes.put(msg.getIdGrupo(), new String[]{msg.getIdUsuario(), msg.getMensaje(), msg.getTimestamp()});
-        }
 
-        return mensajes;
 
+    /* ----- NEW MESSAGES ----- */
+    /* -- Almacena nuevo mensaje en tablas Msg_Privado y Msg_Grupal -- */
+
+    // privado
+    public synchronized void newPrivateMessage(String idUser, String idEmisor, String mensaje, String ext, String timestamp) {
+        Msg_Privado msg;
+
+        msg = new Msg_Privado(idUser, idEmisor, mensaje, ext, timestamp);
+        database.addMsgPrivado(msg);
     }
 
+    // grupal
+    public synchronized void newGroupMessage(String idGrupo, String idUser, String mensaje, String ext, String timestamp) {
+        Msg_Grupal msg;
+
+        msg = new Msg_Grupal(idGrupo, idUser, mensaje, ext, timestamp);
+        database.addMsgGrupal(msg);
+    }
+
+    /* ----- FIN NEW MESSAGES ----- */
+
+
+
+
+    /* OTHER */
+
+    // returns true si la tabla Usuarios tiene 'id'
+    public boolean checkUser(String id) {
+        if (database.getUsuario(id) == null) {
+            return false;
+
+        } else {
+            return true;
+
+        }
+    }
 
     private String getMomentFromTime(String date) {
         String hoy, today, aux, output = "";
@@ -290,6 +472,16 @@ public class Methods extends AppCompatActivity {
 
         // ver como queremos que lo muestre segun dias, fechas pasados x dias...
         return output;
+    }
+
+    // setter ObjectOutputStream
+    private void setObjectOutput(Socket client) {
+        try {
+            oos = new ObjectOutputStream(this.client.getOutputStream());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
