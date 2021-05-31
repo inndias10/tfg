@@ -6,6 +6,7 @@
 package com.tfg.system;
 
 import com.tfg.datos.Mensaje;
+import java.io.DataInputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
@@ -24,12 +25,17 @@ public class HiloHijo extends Thread {
     }
 
     public void run() {
+        DataInputStream dis = null;
         ObjectInputStream entrada = null;
         Mensaje m;
         int tipo;
         boolean error;
+        String user;
 
         try {
+            dis = new DataInputStream(client.getInputStream());
+            user = dis.readUTF();
+            System.out.println(user);
             entrada = new ObjectInputStream(client.getInputStream());
 
             do {

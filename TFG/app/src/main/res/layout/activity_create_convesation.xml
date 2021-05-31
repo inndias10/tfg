@@ -54,15 +54,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Button"
-        tools:layout_editor_absoluteX="52dp"
-        tools:layout_editor_absoluteY="394dp" />
+        tools:layout_editor_absoluteX="54dp"
+        tools:layout_editor_absoluteY="511dp" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Button"
-        tools:layout_editor_absoluteX="237dp"
-        tools:layout_editor_absoluteY="396dp" />
+        tools:layout_editor_absoluteX="221dp"
+        tools:layout_editor_absoluteY="511dp" />
+
+    <ListView
+        android:layout_width="366dp"
+        android:layout_height="175dp"
+        tools:layout_editor_absoluteX="22dp"
+        tools:layout_editor_absoluteY="278dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,7 +26,7 @@ import java.net.Socket;
 import java.util.List;
 
 public class MyChats extends AppCompatActivity {
-    public final String HOST = "192.168.1.241";
+    public final String HOST = "192.168.1.58";
     public final int PORT = 6000;
 
     Methods meth;
