@@ -13,6 +13,9 @@ public interface Dao_Contacts {
     @Query("SELECT id FROM Contacts")
     List<String> getContactos();
 
+    @Query("SELECT * FROM Contacts WHERE id = :id")
+    Contacts checkUser(String id);
+
     @Insert
     void addContact(Contacts contacts);
 

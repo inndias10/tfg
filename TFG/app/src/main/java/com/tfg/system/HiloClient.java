@@ -1,5 +1,7 @@
 package com.tfg.system;
 
+import android.util.Log;
+
 import com.tfg.datos.Mensaje;
 
 import java.io.IOException;
@@ -29,6 +31,7 @@ public class HiloClient extends Thread {
                 ois = new ObjectInputStream(cliente.getInputStream());
                 msj = (Mensaje) ois.readObject();
                 msgType = msj.getTipo();
+                Log.e("ME", "recibo datos comprobacion");
 
                 switch (msgType) {
                     // mensaje de texto privado
@@ -93,7 +96,7 @@ public class HiloClient extends Thread {
             e.printStackTrace();
 
         } finally {
-            if (ois != null) {
+            /* if (ois != null) {
                 try {
                     ois.close();
                 } catch (IOException ex) {
@@ -108,7 +111,7 @@ public class HiloClient extends Thread {
                 } catch (IOException ex) {
                     System.out.println("Error cerrando Socket HiloCliente");
                 }
-            }
+            } */
 
         }
 

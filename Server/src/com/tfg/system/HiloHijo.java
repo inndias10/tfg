@@ -7,6 +7,7 @@ package com.tfg.system;
 
 import com.tfg.datos.Mensaje;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
@@ -33,14 +34,19 @@ public class HiloHijo extends Thread {
         String user;
 
         try {
+            // client me envia su nick al inciar la conexion con el server
             dis = new DataInputStream(client.getInputStream());
             user = dis.readUTF();
             System.out.println(user);
+            objComp.addUser(user, client);
+            
             entrada = new ObjectInputStream(client.getInputStream());
 
             do {
                 m = (Mensaje) entrada.readObject();
                 tipo = m.getTipo();
+                System.out.println("Recibo tipo: " + tipo);
+                
                 if (tipo == 1 || tipo == 6 || tipo == 14) {// mensaje de texto privado o mensaje de fichero privado
                     error = objComp.sendPrivateMessage(m);
                     if (!error) {
@@ -102,7 +108,7 @@ public class HiloHijo extends Thread {
 
             } while (tipo != -1);
 
-        } catch (Exception e) {
+        } catch (IOException | ClassNotFoundException e) {
             System.out.println("Se ha producido un error");
             e.printStackTrace();
         } finally {

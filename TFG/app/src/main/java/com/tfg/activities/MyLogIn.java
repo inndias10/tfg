@@ -20,7 +20,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class MyLogIn extends AppCompatActivity {
-    public final String HOST = "192.168.1.58";
+    public final String HOST = "192.168.1.42";
     public final int PORT = 6100;
 
     EditText username, password;

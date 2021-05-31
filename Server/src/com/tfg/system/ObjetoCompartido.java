@@ -23,6 +23,8 @@ public class ObjetoCompartido {
 
     public ObjetoCompartido() {
         this.activos = new HashMap<>();
+        this.noEnviado = new HashMap<>();
+        this.grupos = new HashMap<>();
     }
 
     public boolean addGroup(String nombre_grupo, String id_usuario, String descripcion, String usuarios, String fecha) {

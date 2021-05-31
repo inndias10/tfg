@@ -26,10 +26,11 @@ import java.net.Socket;
 import java.util.List;
 
 public class MyChats extends AppCompatActivity {
-    public final String HOST = "192.168.1.58";
+    public final String HOST = "192.168.1.42";
     public final int PORT = 6000;
 
-    Methods meth;
+    public Methods meth;
+    public static MyChats instancia;
     MyAdapter adapter;
     ClientLab database;
 
@@ -43,6 +44,7 @@ public class MyChats extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_chats);
+        instancia = this;
 
         me = getAppData();
 
@@ -62,27 +64,19 @@ public class MyChats extends AppCompatActivity {
 
         try {
             client = new Socket(HOST, PORT);
+
+            dos = new DataOutputStream(this.client.getOutputStream());
+            dos.writeUTF(me);
+
             database = ClientLab.get(this);
             meth = new Methods(database, client, me);
             hc = new HiloClient(client, meth);
             hc.start();
 
-            dos = new DataOutputStream(this.client.getOutputStream());
-            dos.writeUTF(me);
-
         } catch (IOException e) {
             Toast.makeText(this, "Error al conectar cliente con servidor", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
 
-        } finally {
-            try {
-                if (dos != null) {
-                    dos.close();
-                }
-            } catch (IOException e) {
-                // error cerrando dos
-                e.printStackTrace();
-            }
         }
 
     }
@@ -150,7 +144,8 @@ public class MyChats extends AppCompatActivity {
 
     }
 
-    public void prueba() {
+    public static MyChats getInstance() {
+        return instancia;
     }
 
 }
