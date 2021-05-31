@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 import com.tfg.R;
+import com.tfg.activities.MyCreateConversation;
 
 public class CuadrodeDialogo extends DialogFragment {
 
@@ -18,13 +19,24 @@ public class CuadrodeDialogo extends DialogFragment {
         builder.setItems(R.array.tipos, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Intent conversacion = new Intent(getContext(), MyCreateConversation.class);
                 if (which == 0) {
-                    Intent privada = new Intent();
+                    privada(conversacion);
                 } else if (which == 1) {
-                    Intent grupal = new Intent();
+                    grupal(conversacion);
                 }
             }
         });
         return builder.create();
+    }
+
+    private void privada(Intent privada) {
+        privada.putExtra("tipo", "privada");
+        startActivity(privada);
+    }
+
+    private void grupal(Intent grupal) {
+        grupal.putExtra("tipo", "grupal");
+        startActivity(grupal);
     }
 }

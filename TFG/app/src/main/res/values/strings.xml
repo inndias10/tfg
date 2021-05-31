@@ -40,4 +40,8 @@
         <item>Privada</item>
         <item>Grupal</item>
     </array>
+
+    <!-- Layout de crear conversación-->
+    <string name="texto1">Texto1</string>
+    <string name="btnCrear">Crear</string>
 </resources>

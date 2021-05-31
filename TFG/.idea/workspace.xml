@@ -28,29 +28,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f836d2b-03a8-41be-8871-672e5105acca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/datos/Mensaje.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/datos/Mensaje.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/BBDD.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/BBDD.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/Config.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/Config.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/HiloHijo.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/HiloHijo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/HiloHijoLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/HiloHijoLogin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/HiloHijoServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/HiloHijoServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/HiloHijoServerLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/HiloHijoServerLogin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/MainServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/MainServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/ObjetoCompartido.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/ObjetoCompartido.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/nbproject/build-impl.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/nbproject/build-impl.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/nbproject/genfiles.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/nbproject/genfiles.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/nbproject/private/private.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/nbproject/private/private.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/nbproject/private/private.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/nbproject/private/private.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/src/com/tfg/system/HiloHijo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/com/tfg/system/HiloHijo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tfg/activities/MyLogIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tfg/activities/MyLogIn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tfg/system/HiloClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tfg/system/HiloClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tfg/system/Methods.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tfg/system/Methods.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tfg/system/MyChats.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tfg/system/MyChats.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tfg/adapters/CuadrodeDialogo.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tfg/adapters/CuadrodeDialogo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_convesation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_convesation.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-en-rGB/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-en-rGB/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +75,7 @@
     <property name="android-custom-viewC:/Users/juanj/AppData/Local/Android/Sdk/sources/android-30/android/widget/TextView.java_SELECTED" value="TextView" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/java" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../ProyectosAndroid/_Practicas/LectorSMS" />
     <property name="multi-representation-previewC:/Users/juanj/AppData/Local/Android/Sdk/sources/android-30/android/view/View.java_selected" value="Custom views" />
     <property name="multi-representation-previewC:/Users/juanj/AppData/Local/Android/Sdk/sources/android-30/android/widget/TextView.java_selected" value="Custom views" />
     <property name="project.structure.last.edited" value="Dependencies" />
@@ -237,9 +219,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622461618930" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1622112590791">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1622475220225">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622475220225" />
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1622112590791" />
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1621703018879" />
     <state width="1876" height="381" key="GridCell.Tab.0.bottom" timestamp="1622462032648">
@@ -312,6 +295,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="666" y="212" key="com.intellij.javaee.MapExternalResourceDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1621612835987" />
+    <state x="491" y="310" width="1597" height="1026" key="dock-window-1" timestamp="1622476902512">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="491" y="310" width="1597" height="1026" key="dock-window-1/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622476902512" />
+    <state x="-1399" y="152" width="1936" height="1047" key="dock-window-2" timestamp="1622476902512">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1399" y="152" width="1936" height="1047" key="dock-window-2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622476902512" />
     <state x="2587" y="253" width="585" height="534" key="find.popup" timestamp="1622374816809">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

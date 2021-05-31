@@ -28,4 +28,12 @@
     <string name="btnGuardar">Save</string>
     <string name="btnCancelar">Cancel</string>
     <string name="titulo">Select the type of conversation to create:</string>
+    <array name="tipos">
+        <item>Private</item>
+        <item>Group</item>
+    </array>
+
+    <!-- Layout de crear conversación-->
+    <string name="texto1">Text1</string>
+    <string name="btnCrear">Create</string>
 </resources>
