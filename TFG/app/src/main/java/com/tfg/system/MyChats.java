@@ -26,7 +26,7 @@ import java.net.Socket;
 import java.util.List;
 
 public class MyChats extends AppCompatActivity {
-    public final String HOST = "192.168.1.42";
+    public final String HOST = "192.168.1.241";
     public final int PORT = 6000;
 
     Methods meth;
@@ -76,7 +76,9 @@ public class MyChats extends AppCompatActivity {
 
         } finally {
             try {
-                dos.close();
+                if (dos != null) {
+                    dos.close();
+                }
             } catch (IOException e) {
                 // error cerrando dos
                 e.printStackTrace();

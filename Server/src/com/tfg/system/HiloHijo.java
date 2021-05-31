@@ -98,6 +98,7 @@ public class HiloHijo extends Thread {
 
         } catch (Exception e) {
             System.out.println("Se ha producido un error");
+            e.printStackTrace();
         } finally {
             if (entrada != null) {
                 try {

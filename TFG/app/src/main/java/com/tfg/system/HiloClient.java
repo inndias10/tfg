@@ -1,11 +1,5 @@
 package com.tfg.system;
 
-import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.tfg.database.db.ClientLab;
-import com.tfg.database.tables.*;
 import com.tfg.datos.Mensaje;
 
 import java.io.IOException;
@@ -26,7 +20,7 @@ public class HiloClient extends Thread {
     public void run() {
         Mensaje msj;
         ObjectInputStream ois = null;
-        int msgType = 0;
+        int msgType;
 
         try {
 
@@ -96,6 +90,7 @@ public class HiloClient extends Thread {
 
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Se ha cerrado la conexión.");
+            e.printStackTrace();
 
         } finally {
             if (ois != null) {

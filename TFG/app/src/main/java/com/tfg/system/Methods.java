@@ -13,7 +13,6 @@ import com.tfg.datos.Mensaje;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.security.acl.Group;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,10 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Methods extends AppCompatActivity {
+
     private ClientLab database;
     private Socket client;
-    private ObjectOutputStream oos;
     private String me;
+    private ObjectOutputStream oos;
 
     public Methods(ClientLab database, Socket client, String me) {
         this.database = database;
@@ -263,15 +263,17 @@ public class Methods extends AppCompatActivity {
         // 'me' es el creador
         if (me.equals(admin)) {
             database.addGroup(new Grupos(id, fecha, descripcion, true));
-            groupalInfoMsgRcv(id, mensaje);
+            //groupalInfoMsgRcv(id, mensaje);
             // crear act conversacion grupal
 
             // alguien crea un grupo con 'me'
         } else {
             database.addGroup(new Grupos(id, fecha, descripcion, false));
-            groupalInfoMsgRcv(id, mensaje);
+            //groupalInfoMsgRcv(id, mensaje);
 
         }
+
+        groupalInfoMsgRcv(id, mensaje);
 
     }
 

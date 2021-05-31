@@ -8,8 +8,50 @@
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Firebase" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f836d2b-03a8-41be-8871-672e5105acca" name="Default Changelist" comment="" />
+    <list default="true" id="4f836d2b-03a8-41be-8871-672e5105acca" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/datos/Mensaje.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/datos/Mensaje.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/BBDD.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/BBDD.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/Config.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/Config.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/HiloHijo.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/HiloHijo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/HiloHijoLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/HiloHijoLogin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/HiloHijoServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/HiloHijoServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/HiloHijoServerLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/HiloHijoServerLogin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/MainServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/MainServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/ObjetoCompartido.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/classes/com/tfg/system/ObjetoCompartido.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/nbproject/build-impl.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/nbproject/build-impl.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/nbproject/genfiles.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/nbproject/genfiles.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/nbproject/private/private.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/nbproject/private/private.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/nbproject/private/private.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/nbproject/private/private.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/com/tfg/system/HiloHijo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/com/tfg/system/HiloHijo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tfg/activities/MyLogIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tfg/activities/MyLogIn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tfg/system/HiloClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tfg/system/HiloClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tfg/system/Methods.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tfg/system/Methods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tfg/system/MyChats.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tfg/system/MyChats.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,7 +71,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1sqt2vzEKpFTTDiSzvKRdUmoSsT" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="flattenPackages" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -42,11 +88,12 @@
     <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-05-21T16:13:36.484Z" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android-custom-viewC:/Users/juanj/AppData/Local/Android/Sdk/sources/android-30/android/view/View.java_SELECTED" value="View" />
     <property name="android-custom-viewC:/Users/juanj/AppData/Local/Android/Sdk/sources/android-30/android/widget/TextView.java_SELECTED" value="TextView" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/java" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../DAM/TFG/proyectos/tfg/TFG" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="multi-representation-previewC:/Users/juanj/AppData/Local/Android/Sdk/sources/android-30/android/view/View.java_selected" value="Custom views" />
     <property name="multi-representation-previewC:/Users/juanj/AppData/Local/Android/Sdk/sources/android-30/android/widget/TextView.java_selected" value="Custom views" />
     <property name="project.structure.last.edited" value="Dependencies" />
@@ -150,6 +197,18 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="2414" y="274" key="#PSD" timestamp="1622374794691">
       <screen x="1920" y="0" width="1920" height="1040" />
@@ -174,32 +233,40 @@
     </state>
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1621612007758" />
     <state x="2610" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1622370392711" />
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1622461618930">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622461618930" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1622112590791">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1622112590791" />
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1621703018879" />
-    <state width="1876" height="142" key="GridCell.Tab.0.bottom" timestamp="1622317347883">
+    <state width="1876" height="381" key="GridCell.Tab.0.bottom" timestamp="1622462032648">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1876" height="381" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622462032648" />
     <state width="1876" height="337" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1621684043514" />
     <state width="1876" height="142" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1622292084501" />
     <state width="1876" height="142" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1622317347883" />
-    <state width="1876" height="142" key="GridCell.Tab.0.center" timestamp="1622317347883">
+    <state width="1876" height="381" key="GridCell.Tab.0.center" timestamp="1622462032648">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1876" height="381" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622462032648" />
     <state width="1876" height="337" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1621684043514" />
     <state width="1876" height="142" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1622292084501" />
     <state width="1876" height="142" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1622317347883" />
-    <state width="1876" height="142" key="GridCell.Tab.0.left" timestamp="1622317347882">
+    <state width="1876" height="381" key="GridCell.Tab.0.left" timestamp="1622462032648">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1876" height="381" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622462032648" />
     <state width="1876" height="337" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1621684043514" />
     <state width="1876" height="142" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1622292084501" />
     <state width="1876" height="142" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1622317347882" />
-    <state width="1876" height="142" key="GridCell.Tab.0.right" timestamp="1622317347883">
+    <state width="1876" height="381" key="GridCell.Tab.0.right" timestamp="1622462032648">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1876" height="381" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622462032648" />
     <state width="1876" height="337" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1621684043514" />
     <state width="1876" height="142" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1622292084501" />
     <state width="1876" height="142" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1622317347883" />
@@ -254,5 +321,9 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2536" y="240" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1622215605688" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1622457510318">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622457510318" />
   </component>
 </project>
