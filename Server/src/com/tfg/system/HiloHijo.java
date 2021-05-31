@@ -6,6 +6,7 @@
 package com.tfg.system;
 
 import com.tfg.datos.Mensaje;
+import java.io.DataInputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
@@ -24,14 +25,19 @@ public class HiloHijo extends Thread {
     }
 
     public void run() {
+        DataInputStream dis = null;
         ObjectInputStream entrada = null;
         Mensaje m;
         int tipo;
         boolean error;
+        String user;
+
         try {
+            dis = new DataInputStream(client.getInputStream());
+            user = dis.readUTF();
+            System.out.println(user);
             entrada = new ObjectInputStream(client.getInputStream());
-            m = (Mensaje) entrada.readObject();
-            tipo = m.getTipo();
+
             do {
                 m = (Mensaje) entrada.readObject();
                 tipo = m.getTipo();
@@ -40,13 +46,16 @@ public class HiloHijo extends Thread {
                     if (!error) {
                         objComp.sendPrivateMessage(new Mensaje(null, m.getEmisor(), null, -2, 2));
                     }
+
                 } else if (tipo == 2) {// crear un grupo
-                    error = objComp.addGroup(m.getReceptor(), m.getEmisor(), new String(m.getMensaje()),m.getAux(), m.getTimestamp());
+                    error = objComp.addGroup(m.getReceptor(), m.getEmisor(), new String(m.getMensaje()), m.getAux(), m.getTimestamp());
                     if (!error) {
                         objComp.sendPrivateMessage(new Mensaje(null, m.getEmisor(), null, -2, 3));
                     }
+
                 } else if (tipo == 3) { // mensaje de texto grupal
                     objComp.sendGroupMessage(m);
+
                 } else if (tipo == 4) {// eliminar un usuario de un grupo
                     if (objComp.removeGroupUser(m.getReceptor(), m.getAux())) {//primero le borro de la base de datos y le borro del hashmap del servidor y luego envio el mensaje a todos los usuarios del grupo
                         objComp.sendPrivateMessage(m);
@@ -55,8 +64,10 @@ public class HiloHijo extends Thread {
                     } else {//si ha ocurrido un problema al borrar de la base de datos o al eliminar del hashmap devuelvo el mensaje de error a la persona que ha intentado eliminar
                         objComp.sendPrivateMessage(new Mensaje(null, m.getEmisor(), null, -2, 5));
                     }
+
                 } else if (tipo == 7) {//comprobar un usuario para crear una conversacion privada
                     objComp.checkUser(m.getReceptor(), m.getEmisor());
+
                 } else if (tipo == 5) {
                     if (objComp.checkUser(m.getAux())) {//primero compruebo a ver si el usuario existe
                         if (objComp.addGroupUser(m.getAux(), m.getReceptor())) {//primero le añado a la base de datos y al hashmap del servidor y luego le envio un mensaje a todos
@@ -68,6 +79,7 @@ public class HiloHijo extends Thread {
                     } else {//si no existe envio un mensaje con el error 6 que es que el usuario al que quiere hablar no existe
                         objComp.sendPrivateMessage(new Mensaje(null, m.getEmisor(), null, -2, 6));
                     }
+
                 } else if (tipo == 6) {//como es un mensaje en el que envian un fichero el servidor solo lo reenvia no hace nada
                     objComp.sendPrivateMessage(m);
 
@@ -81,14 +93,18 @@ public class HiloHijo extends Thread {
                     } else {
                         objComp.sendPrivateMessage(new Mensaje(null, m.getEmisor(), null, -2, 5));
                     }
+
                 } else if (tipo == 12) {
                     if (objComp.addAdmin(m.getAux(), m.getReceptor())) {
                         objComp.sendGroupMessage(new Mensaje(null, m.getReceptor(), (m.getAux() + " es ahora administrador").getBytes(), 13, 0));
                     }
                 }
+
             } while (tipo != -1);
+
         } catch (Exception e) {
             System.out.println("Se ha producido un error");
+            e.printStackTrace();
         } finally {
             if (entrada != null) {
                 try {

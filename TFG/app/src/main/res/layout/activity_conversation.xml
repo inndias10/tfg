@@ -1,46 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/Conversacion"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.MyConversation">
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
-
-    <ListView
-        android:id="@+id/conversacion"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/mesajeEnviar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-    <EditText
-        android:id="@+id/mesajeEnviar"
-        android:layout_width="305dp"
-        android:layout_height="53dp"
-        android:ems="10"
-        android:hint="@string/escribe"
-        android:inputType="textPersonName"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btnEnviar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/btnEnviar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mesajeEnviar"
-        app:layout_constraintTop_toTopOf="@+id/mesajeEnviar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,5 @@
 package com.tfg.system;
 
-import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.tfg.database.db.ClientLab;
-import com.tfg.database.tables.*;
 import com.tfg.datos.Mensaje;
 
 import java.io.IOException;
@@ -15,26 +9,18 @@ import java.net.Socket;
 public class HiloClient extends Thread {
 
     private final Socket cliente;
-    private final ClientLab database;
-    private final String me;
+    private final Methods meth;
 
-    public HiloClient(Socket cl, ClientLab db, String yo) {
+    public HiloClient(Socket cl, Methods mt) {
         this.cliente = cl;
-        this.database = db;
-        this.me = yo;
+        this.meth = mt;
     }
 
     @Override
     public void run() {
-        ObjectInputStream ois = null;
         Mensaje msj;
-        String emisor, mensaje, fileName, grupo, descripcion, time;
-        int msgType = 0;
-        int error;
-
-        Usuarios usuario;
-        Grupos group;
-        Msg_Grupal msgGroup;
+        ObjectInputStream ois = null;
+        int msgType;
 
         try {
 
@@ -47,117 +33,55 @@ public class HiloClient extends Thread {
                 switch (msgType) {
                     // mensaje de texto privado
                     case 1:
-                        emisor = msj.getEmisor();
-                        mensaje = new String(msj.getMensaje());
-                        // print(mensaje) en conversacion si esta dentro / en menu si esta en menu / solo notificacion si no esta dentro
-                        // comprueba si el usuario que envia el mensaje ya existia para el cliente y si no lo crea
-                        if (database.getUsuario(emisor) == null) {
-                            usuario = new Usuarios(emisor);
-                            database.addUsuario(usuario);
-
-                        }
-
-                        newPrivateMessage(emisor, mensaje, "timestamp");
+                        meth.showTextMessage(1, msj.getEmisor(), msj.getEmisor(), new String(msj.getMensaje()), msj.getTimestamp());
                         break;
 
 
                     // mensaje fichero privado
                     case 6:
-                        emisor = msj.getEmisor();
-                        fileName = msj.getAux();
-
-                        // UtilsFiles.createFile(fileName, msj.getMensaje());
-                        newPrivateMessage(emisor, fileName, "timestamp");
+                        meth.showOtherMessage(1, msj.getEmisor(), msj.getEmisor(), msj.getAux(), msj.getTimestamp());
                         break;
 
 
-                    // creacion de conversacion privada
+                    // consulta de usuario para creacion conversacion privada
                     case 7:
-                        emisor = msj.getEmisor();
-                        error = msj.getError();
-
-                        // existe un usuario
-                        if (error == 0) {
-                            usuario = new Usuarios(emisor);
-                            database.addUsuario(usuario);
-
-                        } else if (error == 6) {
-                            // Adv: no existe el usuario a la hora de crear la conversacion
-                        }
-
-                        // tiene que aceptar este usuario para continuar la conversacion? revisar linea 49
+                        meth.createPrivateConversation(msj.getError(), msj.getEmisor());
                         break;
 
+                    case 14:
+                        meth.createPrivate(msj.getEmisor(), msj.getEmisor(), new String(msj.getMensaje()), msj.getAux(), msj.getTimestamp());
+                        break;
+
+
+                    // creacion (2) o adicion (11) a grupo
                     case 2:
-                        emisor = msj.getEmisor();
-                        grupo = msj.getReceptor(); // tiene que tener concatenado id/nombre
-                        descripcion = new String(msj.getMensaje());
-                        mensaje = msj.getAux();
-                        time = msj.getTimestamp();
-
-                        msgGroup = new Msg_Grupal(grupo, "system", mensaje, time);
-
-                        if (me.equals(emisor)) {
-                            group = new Grupos(grupo, time, descripcion, true);
-
-                        } else {
-                            group = new Grupos(grupo, time, descripcion, false);
-
-                        }
-
-                        // introduce en ddbb nuevo grupo y el mensaje de bienvenida
-                        database.addGroup(group);
-                        database.addMsgGrupal(msgGroup);
-
+                    case 11:
+                        meth.createGroup(msj.getEmisor(), msj.getReceptor(), msj.getTimestamp(), new String(msj.getMensaje()), msj.getAux());
                         break;
 
 
                     // mensaje texto grupal
                     case 3:
-                        emisor = msj.getEmisor();
-                        grupo = msj.getReceptor();
-                        mensaje = new String(msj.getMensaje());
-
-                        // print(mensaje)
-                        newGroupMessage(grupo, emisor, mensaje, "timestamp");
+                        meth.showTextMessage(2, msj.getReceptor(), msj.getEmisor(), new String(msj.getMensaje()), msj.getTimestamp());
                         break;
+
 
                     // mensaje fichero grupal
                     case 8:
-                        emisor = msj.getEmisor();
-                        grupo = msj.getReceptor();
-                        fileName = msj.getAux();
-
-                        // UtilsFiles.createFile(fileName, msj.getMensaje());
-                        newGroupMessage(grupo, emisor, fileName, "timestamp");
+                        meth.showOtherMessage(2, msj.getReceptor(), msj.getEmisor(), msj.getAux(), msj.getTimestamp());
                         break;
 
-                    // usuario añadido a grupo
-                    case 11:
-                        grupo = msj.getReceptor();
-                        mensaje = new String(msj.getMensaje());
-
-                        // print(mensaje);
-                        newGroupMessage(grupo, "info", mensaje, "timestamp");
-                        break;
-
-                    // usuario abandona grupo (por salir o expulsión)
+                    // expulsion de usuario
                     case 10:
-                        mensaje = new String(msj.getMensaje());
-                        grupo = msj.getReceptor();
-
-                        // print(mensaje);
-                        newGroupMessage(grupo, "info", mensaje, "timestamp");
+                        meth.exitGroup(msj.getReceptor(), msj.getEmisor(), new String(msj.getMensaje()));
                         break;
 
+                    // nuevo administrador
                     case 13:
-                        mensaje = new String(msj.getMensaje());
-                        grupo = msj.getReceptor();
-
-                        newGroupMessage(grupo, "info", mensaje, "timestamp");
+                        meth.newAdmin(msj.getReceptor(), msj.getEmisor(), new String(msj.getMensaje()));
                         break;
 
-                    default:
+
                 }
 
 
@@ -166,6 +90,7 @@ public class HiloClient extends Thread {
 
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Se ha cerrado la conexión.");
+            e.printStackTrace();
 
         } finally {
             if (ois != null) {
@@ -189,18 +114,5 @@ public class HiloClient extends Thread {
 
     }
 
-    public void newPrivateMessage(String idUser, String mensaje, String timestamp) {
-        Msg_Privado msg;
-
-        //msg = new Msg_Privado(idUser, mensaje, timestamp);
-        //database.addMsgPrivado(msg);
-    }
-
-    public void newGroupMessage(String idGrupo, String idUser, String mensaje, String timestamp) {
-        Msg_Grupal msg;
-
-        msg = new Msg_Grupal(idGrupo, idUser, mensaje, timestamp);
-        database.addMsgGrupal(msg);
-    }
 
 }

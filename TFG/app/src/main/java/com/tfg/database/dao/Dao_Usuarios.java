@@ -11,11 +11,18 @@ import java.util.List;
 
 @Dao
 public interface Dao_Usuarios {
-    @Query("SELECT * FROM Usuarios")
-    List<Usuarios> getUsuarios();
-
     @Query("SELECT * FROM Usuarios WHERE id LIKE :id")
     Usuarios getUsuario(String id);
+
+    @Query("SELECT bloqueo FROM Usuarios WHERE id LIKE :id")
+    boolean getBloqueo(String id);
+
+    @Query("UPDATE Usuarios SET bloqueo = :block WHERE id = :id")
+    void updateBloqueo(String id, boolean block);
+
+    @Query("UPDATE Usuarios SET silencio = :silence WHERE id = :id")
+    void updateSilencio(String id, boolean silence);
+
 
     @Insert
     void addUsuario(Usuarios usuarios);
@@ -23,10 +30,5 @@ public interface Dao_Usuarios {
     @Delete
     void deleteUsuario(Usuarios usuarios);
 
-    @Query("UPDATE Usuarios SET bloqueo = :block WHERE id = :id")
-    void updateBloqueo(String id, boolean block);
-
-    @Query("UPDATE Usuarios SET silencio = :silence WHERE id = :id")
-    void updateSilencio(String id, boolean silence);
 
 }

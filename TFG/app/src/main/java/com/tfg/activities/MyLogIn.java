@@ -1,7 +1,5 @@
 package com.tfg.activities;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -22,13 +20,15 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class MyLogIn extends AppCompatActivity {
-    public final String HOST = "192.168.1.77";
+    public final String HOST = "192.168.1.58";
     public final int PORT = 6100;
 
     EditText username, password;
     Button btnLogin, btnExit;
 
     Socket sckLogin;
+    ObjectOutputStream oos = null;
+    ObjectInputStream ois = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,24 +42,22 @@ public class MyLogIn extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnAceptar);
         btnExit = findViewById(R.id.btnSalir);
 
-        /*try {
+        try {
             sckLogin = new Socket(HOST, PORT);
+            oos = new ObjectOutputStream(this.sckLogin.getOutputStream());
+            ois = new ObjectInputStream(this.sckLogin.getInputStream());
 
         } catch (IOException e) {
             // fallo conexion con server
             e.printStackTrace();
             Toast.makeText(this, "fallo en la conexion", Toast.LENGTH_SHORT).show();
-        }*/
+        }
 
     }
 
     // onClick boton registro
     public void register(View view) {
         Mensaje msj;
-
-        ObjectOutputStream oos = null;
-        ObjectInputStream ois = null;
-
         String nick, psswd;
 
         nick = username.getText().toString();
@@ -69,11 +67,7 @@ public class MyLogIn extends AppCompatActivity {
             Toast.makeText(this, "Rellena los campos para registrarte", Toast.LENGTH_SHORT).show();
 
         } else {
-
             try {
-                oos = new ObjectOutputStream(this.sckLogin.getOutputStream());
-                ois = new ObjectInputStream(this.sckLogin.getInputStream());
-
                 // envia los datos al server que devuelve en el error: 1 si el usuario ya existe y 0 si no
                 msj = new Mensaje(nick, null, psswd.getBytes(), 0, 0);
                 oos.writeObject(msj);
@@ -87,7 +81,6 @@ public class MyLogIn extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "Nombre de usuario en uso. Introduzca uno diferente.", Toast.LENGTH_LONG).show();
                 }
-
 
             } catch (IOException e) {
                 Toast.makeText(this, "Error I/O boton registrar", Toast.LENGTH_LONG).show();
