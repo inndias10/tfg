@@ -1,5 +1,10 @@
 package com.tfg.system;
 
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.tfg.database.db.ClientLab;
@@ -26,14 +31,17 @@ public class Methods extends AppCompatActivity {
     private String me;
     private ObjectOutputStream oos;
 
+    public String info;
+
     public Methods(ClientLab database, Socket client, String me) {
         this.database = database;
         this.client = client;
         this.me = me;
         setObjectOutput(client);
 
-    }
+        info = "Me han llamado desde el menu";
 
+    }
 
     /* ---------- FUNCIONALIDADES COMPARTIDAS ---------- */
 
@@ -194,12 +202,13 @@ public class Methods extends AppCompatActivity {
     /* ---------- CREACION CONVERSACIONES ---------- */
 
     // comprueba con el servidor si puede crear el privado // completo
-    private void prepareCreatePrivate(String nick) {
+    public void prepareCreatePrivate(String nick) {
         Mensaje msj;
 
         try {
             msj = new Mensaje(me, nick, null, 7, 0);
             oos.writeObject(msj);
+            Log.e("ME", "envio datos comprobacion");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -208,7 +217,7 @@ public class Methods extends AppCompatActivity {
     }
 
     // envia al server datos para crear grupo
-    private void prepareCreateGroup(String group, String descripcion, String usuarios) {
+    public void prepareCreateGroup(String group, String descripcion, String usuarios) {
         Mensaje msj;
 
         try {
@@ -224,8 +233,11 @@ public class Methods extends AppCompatActivity {
     // creación de chat privado una vez existe el nick // completo
     public void createPrivateConversation(int error, String nick) {
         if (error == 0) {
+
             database.addContact(new Contacts(nick));
-            // timeout con mensaje de que existe y mostrar activity conversacion privada
+            Intent i = new Intent(getApplicationContext(), com.tfg.activities.MyConversation.class);
+            startActivity(i);
+            // timeout con mensaje de que existe y mostrar activity conversacion privada y pasarle el booleano de primera vez de conver
 
         } else {
             // Adv no existe el usuario
