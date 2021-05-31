@@ -35,7 +35,7 @@ public class HiloHijo extends Thread {
             do {
                 m = (Mensaje) entrada.readObject();
                 tipo = m.getTipo();
-                if (tipo == 1 || tipo == 6) {// mensaje de texto privado o mensaje de fichero privado
+                if (tipo == 1 || tipo == 6 || tipo == 14) {// mensaje de texto privado o mensaje de fichero privado
                     error = objComp.sendPrivateMessage(m);
                     if (!error) {
                         objComp.sendPrivateMessage(new Mensaje(null, m.getEmisor(), null, -2, 2));
